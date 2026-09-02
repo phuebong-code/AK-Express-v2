@@ -19,6 +19,7 @@ import {
   Soup,
   Drumstick,
   LayoutGrid,
+  BadgeCheck,
 } from 'lucide-react';
 
 type CategoryFilter = 'all' | 'achu' | 'kati_kati' | 'full_menu';
@@ -265,7 +266,13 @@ export default function HomePage({ onOrder }: Props) {
         <div className="p-4">
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-[#1E293B] text-sm leading-tight">{vendor.name}</h3>
+              <div className="flex items-center gap-1">
+                <h3 className="font-bold text-[#1E293B] text-sm leading-tight">{vendor.name}</h3>
+                <span className="inline-flex items-center gap-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-blue-100 shrink-0">
+                  <BadgeCheck className="w-3 h-3" />
+                  {t.verified}
+                </span>
+              </div>
               <p className="text-amber-600 text-xs font-medium mt-0.5">{vendor.specialty}</p>
             </div>
             <div className="text-right shrink-0">

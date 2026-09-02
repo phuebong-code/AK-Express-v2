@@ -51,7 +51,7 @@ export const ACHU_ADDONS: AddOnOption[] = [
   { id: 'canda', price: 500 },
   { id: 'njakatu', price: 300 },
   { id: 'njama_njama', price: 500 },
-  { id: 'extra_pepper', price: 200 },
+  { id: 'extra_pepper', price: 0 },
 ];
 
 export const KATI_KATI_BASE_OPTIONS: { id: string; price: number }[] = [
@@ -62,7 +62,7 @@ export const KATI_KATI_BASE_OPTIONS: { id: string; price: number }[] = [
 export const KATI_KATI_ADDONS: AddOnOption[] = [
   { id: 'extra_chicken', price: 1000 },
   { id: 'njama_njama', price: 500 },
-  { id: 'extra_pepper', price: 200 },
+  { id: 'extra_pepper', price: 0 },
 ];
 
 export const BASE_DISH_PRICE = 2500;

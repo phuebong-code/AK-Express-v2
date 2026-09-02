@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLang } from '@/context/LanguageContext';
-import { X, Smartphone, Loader2, CheckCircle2, Lock, ShieldCheck } from 'lucide-react';
+import { X, Smartphone, Loader2, CheckCircle2, Lock, ShieldCheck, Send } from 'lucide-react';
 
 interface Props {
   open: boolean;
@@ -208,6 +208,12 @@ export default function PaymentModal({ open, onClose, amount, onConfirm }: Props
               <CheckCircle2 className="w-9 h-9 text-green-600" />
             </div>
             <p className="text-lg font-bold text-[#1E293B]">{t.paymentSuccess}</p>
+            <div className="w-full bg-blue-50 rounded-xl p-3 flex items-center gap-2 border border-blue-100 animate-[fadeIn_0.4s_ease-out]">
+              <Send className="w-4 h-4 text-blue-500 shrink-0" />
+              <p className="text-xs text-blue-700 font-medium text-left leading-relaxed">
+                {t.dispatchNotified}
+              </p>
+            </div>
             <button
               onClick={onClose}
               className="w-full py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors mt-2"

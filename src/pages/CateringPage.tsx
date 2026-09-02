@@ -17,6 +17,9 @@ import {
   Phone,
   MapPin,
   Users,
+  UsersRound,
+  Wallet,
+  ClipboardList,
 } from 'lucide-react';
 
 export default function CateringPage() {
@@ -32,6 +35,16 @@ export default function CateringPage() {
   const [payOpen, setPayOpen] = useState(false);
   const [booked, setBooked] = useState(false);
   const [bookedPin, setBookedPin] = useState('');
+  const [customOpen, setCustomOpen] = useState(false);
+  const [customGuests, setCustomGuests] = useState('');
+  const [customBudget, setCustomBudget] = useState('');
+  const [customMenu, setCustomMenu] = useState('');
+  const [customName, setCustomName] = useState('');
+  const [customPhone, setCustomPhone] = useState('');
+  const [customQuarter, setCustomQuarter] = useState('');
+  const [customDate, setCustomDate] = useState('');
+  const [customSubmitted, setCustomSubmitted] = useState(false);
+  const customFormValid = !!(customGuests && customBudget && customName && customPhone && customQuarter && customDate);
   const formValid = !!(vendorId && name && phone && quarter && date);
 
   const selectedOption = CATERING_OPTIONS.find((o) => o.people === selectedPeople)!;
@@ -89,8 +102,7 @@ export default function CateringPage() {
         selectedOption.price,
       )}) on ${date}. Name: ${name}, Quarter: ${quarter}.`,
     );
-    const num = selectedVendor.phone.replace(/\D/g, '');
-    window.open(`https://wa.me/237${num}?text=${msg}`, '_blank');
+    window.open(`https://wa.me/237650000000?text=${msg}`, '_blank');
   }
 
   if (booked) {
@@ -143,6 +155,138 @@ export default function CateringPage() {
           {t.cateringSubtitle}
         </p>
       </div>
+
+      {/* Custom Group Order button */}
+      <button
+        onClick={() => setCustomOpen(!customOpen)}
+        className="w-full mb-6 flex items-center gap-3 p-4 rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/50 hover:bg-amber-50 transition-colors text-left"
+      >
+        <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
+          <UsersRound className="w-5 h-5 text-amber-600" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-[#1E293B]">{t.customGroupOrder}</p>
+          <p className="text-[10px] text-slate-500 leading-tight mt-0.5">{t.customGroupDesc}</p>
+        </div>
+      </button>
+
+      {/* Custom Group Order form */}
+      {customOpen && !customSubmitted && (
+        <div className="mb-6 bg-white rounded-2xl shadow-sm border-2 border-amber-200 p-5 space-y-4 animate-[fadeIn_0.2s_ease-out]">
+          <div className="flex items-center gap-2 mb-1">
+            <ClipboardList className="w-4 h-4 text-amber-500" />
+            <h3 className="text-sm font-bold text-[#1E293B]">{t.customGroupOrder}</h3>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <FormField label={t.customGuests} icon={Users}>
+              <input
+                value={customGuests}
+                onChange={(e) => setCustomGuests(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                placeholder={t.customGuestsPlaceholder}
+                inputMode="numeric"
+                className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </FormField>
+            <FormField label={t.customBudget} icon={Wallet}>
+              <input
+                value={customBudget}
+                onChange={(e) => setCustomBudget(e.target.value.replace(/\D/g, '').slice(0, 9))}
+                placeholder={t.customBudgetPlaceholder}
+                inputMode="numeric"
+                className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </FormField>
+          </div>
+          <FormField label={t.customMenuRequests} icon={UtensilsCrossed}>
+            <textarea
+              value={customMenu}
+              onChange={(e) => setCustomMenu(e.target.value)}
+              placeholder={t.customMenuPlaceholder}
+              rows={3}
+              className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+            />
+          </FormField>
+          <div className="grid grid-cols-2 gap-3">
+            <FormField label={t.yourName} icon={User}>
+              <input
+                value={customName}
+                onChange={(e) => setCustomName(e.target.value)}
+                placeholder={t.namePlaceholder}
+                className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </FormField>
+            <FormField label={t.phone} icon={Phone}>
+              <input
+                value={customPhone}
+                onChange={(e) => setCustomPhone(e.target.value)}
+                placeholder={t.phonePlaceholder}
+                className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </FormField>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <FormField label={t.quarter} icon={MapPin}>
+              <select
+                value={customQuarter}
+                onChange={(e) => setCustomQuarter(e.target.value)}
+                className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-amber-400"
+              >
+                <option value="">{t.selectQuarter}</option>
+                {QUARTERS.map((q) => (
+                  <option key={q} value={q}>
+                    {q}
+                  </option>
+                ))}
+              </select>
+            </FormField>
+            <FormField label={t.deliveryDate} icon={Calendar}>
+              <input
+                type="date"
+                value={customDate}
+                onChange={(e) => setCustomDate(e.target.value)}
+                className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </FormField>
+          </div>
+          <button
+            onClick={() => {
+              if (!customFormValid) return;
+              setCustomSubmitted(true);
+            }}
+            disabled={!customFormValid}
+            className="w-full py-3.5 bg-amber-500 hover:bg-amber-600 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold rounded-xl transition-colors shadow-lg shadow-amber-500/30 flex items-center justify-center gap-2"
+          >
+            <ClipboardList className="w-4 h-4" />
+            {t.customSubmit}
+          </button>
+        </div>
+      )}
+
+      {/* Custom submitted confirmation */}
+      {customSubmitted && (
+        <div className="mb-6 bg-green-50 rounded-2xl border border-green-200 p-6 text-center animate-[fadeIn_0.3s_ease-out]">
+          <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
+            <CheckCircle2 className="w-7 h-7 text-green-600" />
+          </div>
+          <p className="text-sm font-bold text-green-700 mb-1">{t.customSubmitted}</p>
+          <button
+            onClick={() => {
+              setCustomSubmitted(false);
+              setCustomOpen(false);
+              setCustomGuests('');
+              setCustomBudget('');
+              setCustomMenu('');
+              setCustomName('');
+              setCustomPhone('');
+              setCustomQuarter('');
+              setCustomDate('');
+            }}
+            className="text-xs text-amber-600 font-semibold hover:text-amber-700 mt-2"
+          >
+            {t.close}
+          </button>
+        </div>
+      )}
 
       {/* Portion selection */}
       <div className="grid grid-cols-2 gap-3 mb-6">

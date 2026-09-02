@@ -129,6 +129,29 @@ export interface Dict {
   loading: string;
   error: string;
   retry: string;
+  // Verified badge
+  verified: string;
+  // Custom group order
+  customGroupOrder: string;
+  customGroupDesc: string;
+  customGuests: string;
+  customBudget: string;
+  customMenuRequests: string;
+  customMenuPlaceholder: string;
+  customSubmit: string;
+  customSubmitted: string;
+  customGuestsPlaceholder: string;
+  customBudgetPlaceholder: string;
+  // Dispatch notification
+  dispatchNotified: string;
+  // Welcome bonus & wallet
+  welcomeBonus: string;
+  welcomeBonusApplied: string;
+  walletCredits: string;
+  walletCreditsApplied: string;
+  walletBalance: string;
+  totalAfterDiscounts: string;
+  free: string;
 }
 
 export const dict: Record<Lang, Dict> = {
@@ -253,6 +276,25 @@ export const dict: Record<Lang, Dict> = {
     loading: 'Loading...',
     error: 'Something went wrong. Please try again.',
     retry: 'Retry',
+    verified: 'Verified',
+    customGroupOrder: 'Custom Group Order',
+    customGroupDesc: 'Need something different? Tell us your guest count, budget, and special menu requests.',
+    customGuests: 'Number of Guests',
+    customGuestsPlaceholder: 'e.g. 75',
+    customBudget: 'Budget (XAF)',
+    customBudgetPlaceholder: 'e.g. 90000',
+    customMenuRequests: 'Special Menu Requests',
+    customMenuPlaceholder: 'e.g. 50% Achu yellow soup, 50% Kati-Kati, extra pepper for all...',
+    customSubmit: 'Submit Custom Request',
+    customSubmitted: 'Custom request submitted! We will match you with a cook and notify you via SMS/WhatsApp.',
+    dispatchNotified: 'Quarter Captain & Vendor Notified via Automated SMS/WhatsApp',
+    welcomeBonus: 'Welcome Bonus',
+    welcomeBonusApplied: 'Welcome Bonus Applied',
+    walletCredits: 'Wallet/Referral Credits',
+    walletCreditsApplied: 'Credits Applied',
+    walletBalance: 'Wallet Balance',
+    totalAfterDiscounts: 'Total After Discounts',
+    free: 'Free',
   },
   fr: {
     appName: 'Achu & Kati-Kati Express',
@@ -375,6 +417,25 @@ export const dict: Record<Lang, Dict> = {
     loading: 'Chargement...',
     error: 'Une erreur est survenue. Veuillez réessayer.',
     retry: 'Réessayer',
+    verified: 'Vérifié',
+    customGroupOrder: 'Commande de Groupe Personnalisée',
+    customGroupDesc: 'Besoin de quelque chose de différent? Dites-nous votre nombre d\'invités, budget et demandes spéciales.',
+    customGuests: 'Nombre d\'Invités',
+    customGuestsPlaceholder: 'ex. 75',
+    customBudget: 'Budget (XAF)',
+    customBudgetPlaceholder: 'ex. 90000',
+    customMenuRequests: 'Demandes de Menu Spéciales',
+    customMenuPlaceholder: 'ex. 50% Achu soupe jaune, 50% Kati-Kati, piment supplémentaire pour tous...',
+    customSubmit: 'Soumettre la Demande',
+    customSubmitted: 'Demande envoyée! Nous vous mettrons en relation avec un cuisinier et vous notifierons par SMS/WhatsApp.',
+    dispatchNotified: 'Capitaine de Quartier & Vendeur Notifiés par SMS/WhatsApp Automatique',
+    welcomeBonus: 'Bonus de Bienvenue',
+    welcomeBonusApplied: 'Bonus de Bienvenue Appliqué',
+    walletCredits: 'Crédits Portefeuille/Parrainage',
+    walletCreditsApplied: 'Crédits Appliqués',
+    walletBalance: 'Solde du Portefeuille',
+    totalAfterDiscounts: 'Total Après Remises',
+    free: 'Gratuit',
   },
 };
 

@@ -15,6 +15,7 @@ import {
 } from '@/lib/pricing';
 import { QUARTERS } from '@/lib/i18n';
 import PaymentModal from '@/components/PaymentModal';
+import { getDeviceId, getWallet, applyWelcomeBonus, applyWalletCredits, WELCOME_BONUS_THRESHOLD, WELCOME_BONUS_AMOUNT } from '@/lib/wallet';
 import {
   X,
   Star,
@@ -30,6 +31,7 @@ import {
   Soup,
   Check,
   Smartphone,
+  BadgeCheck,
 } from 'lucide-react';
 
 interface Props {
@@ -66,8 +68,17 @@ function OrderModal({ vendor, onClose }: Props) {
         (KATI_KATI_BASE_OPTIONS.find((o) => o.id === katiBase)?.price || 0);
 
   const perUnitPrice = BASE_DISH_PRICE + addonPrice;
-  const total = perUnitPrice * quantity;
-  const pricing = computePricing(total);
+  const grossTotal = perUnitPrice * quantity;
+
+  const wallet = getWallet();
+  const bonusResult = applyWelcomeBonus(grossTotal, wallet);
+  const bonusApplied = bonusResult.bonus;
+  const afterBonus = bonusResult.newTotal;
+  const creditsResult = applyWalletCredits(afterBonus, wallet);
+  const creditsApplied = creditsResult.creditsUsed;
+  const finalTotal = creditsResult.newTotal;
+
+  const pricing = computePricing(finalTotal);
 
   const soupSelected = dishType === 'kati_kati' || soupChoice !== '';
   const formValid = !!(name && phone && quarter && soupSelected);
@@ -102,7 +113,7 @@ function OrderModal({ vendor, onClose }: Props) {
       customer_phone: phone,
       dish: buildDishLabel(),
       quantity,
-      total_xaf: pricing.total,
+      total_xaf: finalTotal,
       commission_xaf: pricing.commission,
       gateway_fee_xaf: pricing.gatewayFee,
       payout_fee_xaf: pricing.payoutFee,
@@ -168,7 +179,13 @@ function OrderModal({ vendor, onClose }: Props) {
                 <X className="w-4 h-4" />
               </button>
               <div className="absolute bottom-3 left-4 right-4">
-                <h2 className="text-lg font-bold text-white leading-tight">{vendor.name}</h2>
+                <div className="flex items-center gap-1.5">
+                  <h2 className="text-lg font-bold text-white leading-tight">{vendor.name}</h2>
+                  <span className="inline-flex items-center gap-0.5 bg-blue-500/90 backdrop-blur-sm text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0">
+                    <BadgeCheck className="w-3 h-3" />
+                    {t.verified}
+                  </span>
+                </div>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="flex items-center gap-1 bg-black/40 backdrop-blur-sm rounded-full px-2 py-0.5">
                     <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
@@ -311,7 +328,11 @@ function OrderModal({ vendor, onClose }: Props) {
                               {checked && <Check className="w-3 h-3 text-white" />}
                             </div>
                             <span className="text-sm font-semibold text-[#1E293B] flex-1 text-left">{labels[opt.id]}</span>
-                            <span className="text-xs font-bold text-amber-600">+{opt.price} {t.xaf}</span>
+                            {opt.price > 0 ? (
+                              <span className="text-xs font-bold text-amber-600">+{opt.price} {t.xaf}</span>
+                            ) : (
+                              <span className="text-xs font-bold text-green-600">{t.free}</span>
+                            )}
                           </button>
                         );
                       })}
@@ -380,7 +401,11 @@ function OrderModal({ vendor, onClose }: Props) {
                               {checked && <Check className="w-3 h-3 text-white" />}
                             </div>
                             <span className="text-sm font-semibold text-[#1E293B] flex-1 text-left">{labels[opt.id]}</span>
-                            <span className="text-xs font-bold text-amber-600">+{opt.price} {t.xaf}</span>
+                            {opt.price > 0 ? (
+                              <span className="text-xs font-bold text-amber-600">+{opt.price} {t.xaf}</span>
+                            ) : (
+                              <span className="text-xs font-bold text-green-600">{t.free}</span>
+                            )}
                           </button>
                         );
                       })}
@@ -452,12 +477,24 @@ function OrderModal({ vendor, onClose }: Props) {
               <div className="bg-white rounded-2xl border border-amber-100 p-4 space-y-2">
                 <div className="flex justify-between text-xs">
                   <span className="text-slate-500">{buildDishLabel()} x{quantity}</span>
-                  <span className="font-semibold text-[#1E293B]">{formatXaf(total)}</span>
+                  <span className="font-semibold text-[#1E293B]">{formatXaf(grossTotal)}</span>
                 </div>
                 {addonPrice > 0 && (
                   <div className="flex justify-between text-xs">
                     <span className="text-slate-400">{t.addOns}</span>
                     <span className="text-slate-400">+{formatXaf(addonPrice * quantity)}</span>
+                  </div>
+                )}
+                {bonusApplied > 0 && (
+                  <div className="flex justify-between text-xs">
+                    <span className="text-green-600 font-semibold">{t.welcomeBonus} ({t.welcomeBonusApplied})</span>
+                    <span className="text-green-600 font-semibold">-{formatXaf(bonusApplied)}</span>
+                  </div>
+                )}
+                {creditsApplied > 0 && (
+                  <div className="flex justify-between text-xs">
+                    <span className="text-green-600 font-semibold">{t.walletCredits}</span>
+                    <span className="text-green-600 font-semibold">-{formatXaf(creditsApplied)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-xs">
@@ -467,7 +504,7 @@ function OrderModal({ vendor, onClose }: Props) {
                 <div className="border-t border-amber-100 my-2" />
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-bold text-[#1E293B]">{t.totalPayable}</span>
-                  <span className="text-lg font-extrabold text-amber-600">{formatXaf(total)}</span>
+                  <span className="text-lg font-extrabold text-amber-600">{formatXaf(finalTotal)}</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[10px] text-amber-600 pt-1">
                   <Lock className="w-3 h-3" />
@@ -506,7 +543,7 @@ function OrderModal({ vendor, onClose }: Props) {
         <PaymentModal
           open={payOpen}
           onClose={() => setPayOpen(false)}
-          amount={total}
+          amount={finalTotal}
           onConfirm={handlePaymentConfirm}
         />
       </div>
