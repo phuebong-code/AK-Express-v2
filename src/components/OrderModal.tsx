@@ -29,6 +29,7 @@ import {
   Plus,
   Soup,
   Check,
+  Smartphone,
 } from 'lucide-react';
 
 interface Props {
@@ -485,6 +486,19 @@ function OrderModal({ vendor, onClose }: Props) {
               >
                 {t.payMomo}
               </button>
+
+              <div className="flex items-center justify-center gap-2 -mt-1">
+                <span className="inline-flex items-center gap-1 bg-[#FFCC00] text-[#1E293B] text-[10px] font-bold px-2.5 py-1 rounded-full">
+                  <Smartphone className="w-3 h-3" />
+                  MTN MoMo
+                </span>
+                <span className="text-[10px] text-slate-400 font-medium">&</span>
+                <span className="inline-flex items-center gap-1 bg-[#FF7900] text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
+                  <Smartphone className="w-3 h-3" />
+                  Orange Money
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-400 text-center -mt-1">MTN MoMo &amp; Orange Money Supported</p>
             </div>
           </>
         )}
