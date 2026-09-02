@@ -374,4 +374,10 @@ export const QUARTERS = [
   'Kotto',
   'Ndogbong',
   'Ange Raphaël',
+  'Bonamoussadi',
+  'Bonaberi',
+  'Bastos',
+  'Logbessou',
+  'Lendeng',
+  'Santa Barbara'
 ];
