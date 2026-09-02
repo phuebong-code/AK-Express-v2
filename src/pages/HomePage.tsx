@@ -5,6 +5,7 @@ import { Vendor, DishType } from '@/lib/types';
 import { QUARTERS } from '@/lib/i18n';
 import { getVendorImage, HERO_IMAGE } from '@/lib/images';
 import { formatXaf } from '@/lib/pricing';
+import { MOCK_VENDORS } from '@/lib/mockVendors';
 import {
   Search,
   Utensils,
@@ -40,10 +41,20 @@ export default function HomePage({ onOrder }: Props) {
 
   async function fetchVendors() {
     setLoading(true);
-    let query = supabase.from('vendors').select('*').order('rating', { ascending: false });
-    if (quarter) query = query.eq('quarter', quarter);
-    const { data, error } = await query;
-    if (!error && data) setVendors(data as Vendor[]);
+    try {
+      let query = supabase.from('vendors').select('*').order('rating', { ascending: false });
+      if (quarter) query = query.eq('quarter', quarter);
+      const { data, error } = await query;
+      if (!error && data && data.length > 0) {
+        setVendors(data as Vendor[]);
+      } else {
+        const filtered = quarter ? MOCK_VENDORS.filter((v) => v.quarter === quarter) : MOCK_VENDORS;
+        setVendors(filtered);
+      }
+    } catch {
+      const filtered = quarter ? MOCK_VENDORS.filter((v) => v.quarter === quarter) : MOCK_VENDORS;
+      setVendors(filtered);
+    }
     setLoading(false);
   }
 

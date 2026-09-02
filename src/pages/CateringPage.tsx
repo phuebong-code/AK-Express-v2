@@ -5,6 +5,7 @@ import { Vendor, CateringRequest } from '@/lib/types';
 import { QUARTERS } from '@/lib/i18n';
 import { CATERING_OPTIONS, computePricing, formatXaf, generatePin } from '@/lib/pricing';
 import PaymentModal from '@/components/PaymentModal';
+import { MOCK_VENDORS } from '@/lib/mockVendors';
 import {
   UtensilsCrossed,
   Truck,
@@ -42,9 +43,14 @@ export default function CateringPage() {
       .from('vendors')
       .select('*')
       .order('rating', { ascending: false })
-      .then(({ data }) => {
-        if (data) setVendors(data as Vendor[]);
-      });
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          setVendors(data as Vendor[]);
+        } else {
+          setVendors(MOCK_VENDORS);
+        }
+      })
+      .catch(() => setVendors(MOCK_VENDORS));
   }, []);
 
   async function handlePaymentConfirm() {

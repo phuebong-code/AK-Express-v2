@@ -93,6 +93,10 @@ export interface Dict {
   paymentSuccess: string;
   close: string;
   cancel: string;
+  escrowPinTitle: string;
+  escrowPinDesc: string;
+  confirmEscrow: string;
+  pinMismatch: string;
   // Category filters
   catAllCooks: string;
   catAchuSpecialists: string;
@@ -209,13 +213,17 @@ export const dict: Record<Lang, Dict> = {
     releasedOrders: 'Released Orders',
     noReleased: 'No funds released yet.',
     payWith: 'Pay With',
-    mtnMoney: 'MTN Mobile Money',
-    orangeMoney: 'Orange Money',
+    mtnMoney: 'MTN MoMo Escrow',
+    orangeMoney: 'Orange Money Escrow',
     payNow: 'Pay Now',
     paying: 'Processing...',
     paymentSuccess: 'Payment confirmed! Funds held in escrow.',
     close: 'Close',
     cancel: 'Cancel',
+    escrowPinTitle: 'Enter Your 4-Digit Escrow PIN',
+    escrowPinDesc: 'Create a 4-digit PIN to lock your payment in escrow. The cook receives funds only when this PIN is verified at pickup.',
+    confirmEscrow: 'Confirm & Lock in Escrow',
+    pinMismatch: 'PINs do not match. Please re-enter.',
     catAllCooks: 'All Cooks',
     catAchuSpecialists: 'Achu Specialists',
     catFufuKatiKati: 'Fufu & Kati-Kati',
@@ -327,13 +335,17 @@ export const dict: Record<Lang, Dict> = {
     releasedOrders: 'Commandes Libérées',
     noReleased: 'Aucun fonds libéré pour le moment.',
     payWith: 'Payer Avec',
-    mtnMoney: 'MTN Mobile Money',
-    orangeMoney: 'Orange Money',
+    mtnMoney: 'MTN MoMo Escrow',
+    orangeMoney: 'Orange Money Escrow',
     payNow: 'Payer Maintenant',
     paying: 'Traitement...',
     paymentSuccess: 'Paiement confirmé! Fonds bloqués en escrow.',
     close: 'Fermer',
     cancel: 'Annuler',
+    escrowPinTitle: 'Entrez Votre Code PIN Escrow à 4 Chiffres',
+    escrowPinDesc: 'Créez un code PIN à 4 chiffres pour bloquer votre paiement en escrow. Le cuisinier ne reçoit les fonds qu\'après vérification du PIN au retrait.',
+    confirmEscrow: 'Confirmer & Bloquer en Escrow',
+    pinMismatch: 'Les codes PIN ne correspondent pas. Veuillez réessayer.',
     catAllCooks: 'Tous les Cuisiniers',
     catAchuSpecialists: 'Spécialistes Achu',
     catFufuKatiKati: 'Fufu & Kati-Kati',
@@ -374,10 +386,4 @@ export const QUARTERS = [
   'Kotto',
   'Ndogbong',
   'Ange Raphaël',
-  'Bonamoussadi',
-  'Bonaberi',
-  'Bastos',
-  'Logbessou',
-  'Lendeng',
-  'Santa Barbara'
 ];
