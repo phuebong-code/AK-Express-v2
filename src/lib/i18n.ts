@@ -164,7 +164,7 @@ export const dict: Record<Lang, Dict> = {
     navVendor: 'Vendor',
     heroPill: 'Grassfield Delicacies, Delivered Hot',
     heroSubtitle:
-      'Order authentic Bamenda-style Achu & yellow (Ndza Nikki) or black soup, Fufu Corn & Kati-Kati from local cooks in Douala.',
+      'Order authentic Bamenda-style Achu & yellow soup (Ndza Nikki) or black soup, Fufu Corn & Kati-Kati from local cooks in Douala.',
     searchPlaceholder: 'Search vendors or dishes in Douala...',
     allQuarters: 'All Quarters',
     featurePoundedTitle: 'Pounded Fresh',
