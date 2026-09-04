@@ -268,8 +268,8 @@ export default function HomePage({ onOrder }: Props) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1">
                 <h3 className="font-bold text-[#1E293B] text-sm leading-tight">{vendor.name}</h3>
-                <span className="inline-flex items-center gap-0.5 bg-blue-50 text-blue-600 text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-blue-100 shrink-0">
-                  <BadgeCheck className="w-3 h-3" />
+                <span className="inline-flex items-center gap-0.5 bg-blue-50 text-[#2563EB] text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-blue-200 shrink-0 shadow-sm">
+                  <BadgeCheck className="w-3 h-3 text-[#3B82F6]" />
                   {t.verified}
                 </span>
               </div>

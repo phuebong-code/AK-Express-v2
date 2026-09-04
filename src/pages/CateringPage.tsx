@@ -20,6 +20,8 @@ import {
   UsersRound,
   Wallet,
   ClipboardList,
+  Car,
+  X,
 } from 'lucide-react';
 
 export default function CateringPage() {
@@ -44,6 +46,18 @@ export default function CateringPage() {
   const [customQuarter, setCustomQuarter] = useState('');
   const [customDate, setCustomDate] = useState('');
   const [customSubmitted, setCustomSubmitted] = useState(false);
+  const [customTaxi, setCustomTaxi] = useState(false);
+  const [eventDrawerOpen, setEventDrawerOpen] = useState(false);
+  const [eventGuests, setEventGuests] = useState('');
+  const [eventBudget, setEventBudget] = useState('');
+  const [eventMenu, setEventMenu] = useState('');
+  const [eventName, setEventName] = useState('');
+  const [eventPhone, setEventPhone] = useState('');
+  const [eventQuarter, setEventQuarter] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [eventTaxi, setEventTaxi] = useState(false);
+  const [eventSubmitted, setEventSubmitted] = useState(false);
+  const eventFormValid = !!(eventGuests && eventBudget && eventName && eventPhone && eventQuarter && eventDate);
   const customFormValid = !!(customGuests && customBudget && customName && customPhone && customQuarter && customDate);
   const formValid = !!(vendorId && name && phone && quarter && date);
 
@@ -285,6 +299,177 @@ export default function CateringPage() {
           >
             {t.close}
           </button>
+        </div>
+      )}
+
+      {/* Custom Event Request button */}
+      <button
+        onClick={() => setEventDrawerOpen(true)}
+        className="w-full mb-6 flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-[#B91C1C] to-[#DC2626] text-white hover:from-[#991B1B] hover:to-[#B91C1C] transition-all shadow-lg shadow-red-900/20 text-left"
+      >
+        <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+          <Car className="w-5 h-5 text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-white">{t.customEventRequest}</p>
+          <p className="text-[10px] text-white/80 leading-tight mt-0.5">{t.customEventDesc}</p>
+        </div>
+      </button>
+
+      {/* Custom Event Request drawer */}
+      {eventDrawerOpen && !eventSubmitted && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
+          <div className="bg-[#FFFDF5] w-full max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[92vh] overflow-y-auto animate-[slideUp_0.3s_ease-out]">
+            <div className="sticky top-0 bg-[#FFFDF5] flex items-center justify-between p-5 pb-3 border-b border-amber-100 z-10">
+              <div className="flex items-center gap-2">
+                <Car className="w-5 h-5 text-[#B91C1C]" />
+                <h3 className="text-sm font-bold text-[#1E293B]">{t.customEventRequest}</h3>
+              </div>
+              <button
+                onClick={() => setEventDrawerOpen(false)}
+                className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="p-5 space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <FormField label={t.customEventGuests} icon={Users}>
+                  <input
+                    value={eventGuests}
+                    onChange={(e) => setEventGuests(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                    placeholder={t.customEventGuestsPlaceholder}
+                    inputMode="numeric"
+                    className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </FormField>
+                <FormField label={t.customEventBudget} icon={Wallet}>
+                  <input
+                    value={eventBudget}
+                    onChange={(e) => setEventBudget(e.target.value.replace(/\D/g, '').slice(0, 9))}
+                    placeholder={t.customEventBudgetPlaceholder}
+                    inputMode="numeric"
+                    className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </FormField>
+              </div>
+              <FormField label={t.customEventMenu} icon={UtensilsCrossed}>
+                <textarea
+                  value={eventMenu}
+                  onChange={(e) => setEventMenu(e.target.value)}
+                  placeholder={t.customEventMenuPlaceholder}
+                  rows={3}
+                  className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
+                />
+              </FormField>
+              <div className="grid grid-cols-2 gap-3">
+                <FormField label={t.customEventName} icon={User}>
+                  <input
+                    value={eventName}
+                    onChange={(e) => setEventName(e.target.value)}
+                    placeholder={t.namePlaceholder}
+                    className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </FormField>
+                <FormField label={t.customEventPhone} icon={Phone}>
+                  <input
+                    value={eventPhone}
+                    onChange={(e) => setEventPhone(e.target.value)}
+                    placeholder={t.phonePlaceholder}
+                    className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </FormField>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <FormField label={t.customEventQuarter} icon={MapPin}>
+                  <select
+                    value={eventQuarter}
+                    onChange={(e) => setEventQuarter(e.target.value)}
+                    className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  >
+                    <option value="">{t.selectQuarter}</option>
+                    {QUARTERS.map((q) => (
+                      <option key={q} value={q}>
+                        {q}
+                      </option>
+                    ))}
+                  </select>
+                </FormField>
+                <FormField label={t.customEventDate} icon={Calendar}>
+                  <input
+                    type="date"
+                    value={eventDate}
+                    onChange={(e) => setEventDate(e.target.value)}
+                    className="w-full px-4 py-3 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </FormField>
+              </div>
+              {/* Taxi charter toggle */}
+              <button
+                onClick={() => setEventTaxi(!eventTaxi)}
+                className={`w-full flex items-center gap-3 p-4 rounded-2xl border-2 transition-all ${
+                  eventTaxi
+                    ? 'border-[#B91C1C] bg-red-50'
+                    : 'border-amber-100 bg-white hover:border-amber-200'
+                }`}
+              >
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                  eventTaxi ? 'bg-[#B91C1C]' : 'bg-amber-50'
+                }`}>
+                  <Car className={`w-5 h-5 ${eventTaxi ? 'text-white' : 'text-amber-500'}`} />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="text-sm font-bold text-[#1E293B]">{t.taxiCharter}</p>
+                  <p className="text-[10px] text-slate-500 leading-tight mt-0.5">{t.taxiCharterDesc}</p>
+                </div>
+                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
+                  eventTaxi ? 'border-[#B91C1C] bg-[#B91C1C]' : 'border-slate-300'
+                }`}>
+                  {eventTaxi && <CheckCircle2 className="w-4 h-4 text-white" />}
+                </div>
+              </button>
+              <button
+                onClick={() => {
+                  if (!eventFormValid) return;
+                  setEventSubmitted(true);
+                }}
+                disabled={!eventFormValid}
+                className="w-full py-3.5 bg-[#B91C1C] hover:bg-[#991B1B] disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold rounded-xl transition-colors shadow-lg shadow-red-900/20 flex items-center justify-center gap-2"
+              >
+                <ClipboardList className="w-4 h-4" />
+                {t.customEventSubmit}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Event submitted confirmation */}
+      {eventSubmitted && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]">
+          <div className="bg-[#FFFDF5] w-full max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl p-8 text-center animate-[slideUp_0.3s_ease-out]">
+            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="w-9 h-9 text-green-600" />
+            </div>
+            <p className="text-sm font-bold text-green-700 mb-4">{t.customEventSubmitted}</p>
+            <button
+              onClick={() => {
+                setEventSubmitted(false);
+                setEventDrawerOpen(false);
+                setEventGuests('');
+                setEventBudget('');
+                setEventMenu('');
+                setEventName('');
+                setEventPhone('');
+                setEventQuarter('');
+                setEventDate('');
+                setEventTaxi(false);
+              }}
+              className="w-full py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors"
+            >
+              {t.close}
+            </button>
+          </div>
         </div>
       )}
 

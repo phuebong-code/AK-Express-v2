@@ -67,6 +67,9 @@ export const KATI_KATI_ADDONS: AddOnOption[] = [
 
 export const BASE_DISH_PRICE = 2500;
 
+export const MOTOBIKE_DELIVERY_FEE = 1000;
+export const TAXI_CHARTER_DELIVERY_FEE = 5000;
+
 export function getAddonPrice(addonIds: string[], options: AddOnOption[]): number {
   return addonIds.reduce((sum, id) => {
     const opt = options.find((o) => o.id === id);

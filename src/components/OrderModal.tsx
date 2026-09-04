@@ -12,6 +12,8 @@ import {
   KATI_KATI_BASE_OPTIONS,
   KATI_KATI_ADDONS,
   getAddonPrice,
+  MOTOBIKE_DELIVERY_FEE,
+  TAXI_CHARTER_DELIVERY_FEE,
 } from '@/lib/pricing';
 import { QUARTERS } from '@/lib/i18n';
 import PaymentModal from '@/components/PaymentModal';
@@ -32,6 +34,8 @@ import {
   Check,
   Smartphone,
   BadgeCheck,
+  Bike,
+  Car,
 } from 'lucide-react';
 
 interface Props {
@@ -58,6 +62,7 @@ function OrderModal({ vendor, onClose }: Props) {
   const [payOpen, setPayOpen] = useState(false);
   const [success, setSuccess] = useState(false);
   const [orderPin, setOrderPin] = useState('');
+  const [deliveryMethod, setDeliveryMethod] = useState<'moto' | 'taxi'>('moto');
 
   const showDishSwitch = isAchu && isKatiKati;
 
@@ -68,7 +73,9 @@ function OrderModal({ vendor, onClose }: Props) {
         (KATI_KATI_BASE_OPTIONS.find((o) => o.id === katiBase)?.price || 0);
 
   const perUnitPrice = BASE_DISH_PRICE + addonPrice;
-  const grossTotal = perUnitPrice * quantity;
+  const mealTotal = perUnitPrice * quantity;
+  const deliveryFee = deliveryMethod === 'taxi' ? TAXI_CHARTER_DELIVERY_FEE : MOTOBIKE_DELIVERY_FEE;
+  const grossTotal = mealTotal + deliveryFee;
 
   const wallet = getWallet();
   const bonusResult = applyWelcomeBonus(grossTotal, wallet);
@@ -181,8 +188,8 @@ function OrderModal({ vendor, onClose }: Props) {
               <div className="absolute bottom-3 left-4 right-4">
                 <div className="flex items-center gap-1.5">
                   <h2 className="text-lg font-bold text-white leading-tight">{vendor.name}</h2>
-                  <span className="inline-flex items-center gap-0.5 bg-blue-500/90 backdrop-blur-sm text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0">
-                    <BadgeCheck className="w-3 h-3" />
+                  <span className="inline-flex items-center gap-0.5 bg-[#2563EB]/90 backdrop-blur-sm text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0 shadow-sm border border-[#3B82F6]/50">
+                    <BadgeCheck className="w-3 h-3 text-[#60A5FA]" />
                     {t.verified}
                   </span>
                 </div>
@@ -473,11 +480,58 @@ function OrderModal({ vendor, onClose }: Props) {
                 </div>
               </div>
 
+              {/* Delivery method */}
+              <div className="bg-white rounded-2xl border border-amber-100 p-4">
+                <label className="text-xs font-bold text-[#1E293B] mb-3 block">{t.deliveryMethod}</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setDeliveryMethod('moto')}
+                    className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all ${
+                      deliveryMethod === 'moto'
+                        ? 'border-amber-500 bg-amber-50'
+                        : 'border-slate-100 hover:border-amber-200'
+                    }`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      deliveryMethod === 'moto' ? 'bg-amber-100' : 'bg-slate-50'
+                    }`}>
+                      <Bike className={`w-4 h-4 ${deliveryMethod === 'moto' ? 'text-amber-600' : 'text-slate-400'}`} />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-[11px] font-bold text-[#1E293B] leading-tight">{t.deliveryMoto}</p>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => setDeliveryMethod('taxi')}
+                    className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all ${
+                      deliveryMethod === 'taxi'
+                        ? 'border-[#B91C1C] bg-red-50'
+                        : 'border-slate-100 hover:border-amber-200'
+                    }`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      deliveryMethod === 'taxi' ? 'bg-red-100' : 'bg-slate-50'
+                    }`}>
+                      <Car className={`w-4 h-4 ${deliveryMethod === 'taxi' ? 'text-[#B91C1C]' : 'text-slate-400'}`} />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-[11px] font-bold text-[#1E293B] leading-tight">{t.deliveryTaxi}</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
               {/* Price breakdown */}
               <div className="bg-white rounded-2xl border border-amber-100 p-4 space-y-2">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-500">{buildDishLabel()} x{quantity}</span>
-                  <span className="font-semibold text-[#1E293B]">{formatXaf(grossTotal)}</span>
+                  <span className="text-slate-500">{t.mealTotal} ({buildDishLabel()} x{quantity})</span>
+                  <span className="font-semibold text-[#1E293B]">{formatXaf(mealTotal)}</span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-500">
+                    {deliveryMethod === 'taxi' ? t.taxiCharterDelivery : t.motorbikeDelivery}
+                  </span>
+                  <span className="font-semibold text-[#1E293B]">{formatXaf(deliveryFee)}</span>
                 </div>
                 {addonPrice > 0 && (
                   <div className="flex justify-between text-xs">

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLang } from '@/context/LanguageContext';
 import { X, Smartphone, Loader2, CheckCircle2, Lock, ShieldCheck, Send } from 'lucide-react';
+import { playOrderChime } from '@/lib/audio';
 
 interface Props {
   open: boolean;
@@ -44,6 +45,7 @@ export default function PaymentModal({ open, onClose, amount, onConfirm }: Props
     setPhase('processing');
     await new Promise((r) => setTimeout(r, 2200));
     await onConfirm();
+    playOrderChime();
     setPhase('success');
   };
 

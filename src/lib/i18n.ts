@@ -152,6 +152,32 @@ export interface Dict {
   walletBalance: string;
   totalAfterDiscounts: string;
   free: string;
+  // Custom event request
+  customEventRequest: string;
+  customEventDesc: string;
+  customEventGuests: string;
+  customEventGuestsPlaceholder: string;
+  customEventBudget: string;
+  customEventBudgetPlaceholder: string;
+  customEventMenu: string;
+  customEventMenuPlaceholder: string;
+  taxiCharter: string;
+  taxiCharterDesc: string;
+  customEventSubmit: string;
+  customEventSubmitted: string;
+  customEventName: string;
+  customEventPhone: string;
+  customEventQuarter: string;
+  customEventDate: string;
+  // Delivery breakdown
+  mealTotal: string;
+  motorbikeDelivery: string;
+  taxiCharterDelivery: string;
+  deliveryMethod: string;
+  deliveryMoto: string;
+  deliveryTaxi: string;
+  // Splash
+  splashTagline: string;
 }
 
 export const dict: Record<Lang, Dict> = {
@@ -164,7 +190,7 @@ export const dict: Record<Lang, Dict> = {
     navVendor: 'Vendor',
     heroPill: 'Grassfield Delicacies, Delivered Hot',
     heroSubtitle:
-      'Order authentic Bamenda-style Achu, yellow & black soup, and Kati-Kati chicken from local cooks in Douala.',
+      'Order authentic Bamenda-style Achu & yellow (Ndza Nikki) or black soup, Fufu Corn & Kati-Kati from local cooks in Douala',
     searchPlaceholder: 'Search vendors or dishes in Douala...',
     allQuarters: 'All Quarters',
     featurePoundedTitle: 'Pounded Fresh',
@@ -295,6 +321,29 @@ export const dict: Record<Lang, Dict> = {
     walletBalance: 'Wallet Balance',
     totalAfterDiscounts: 'Total After Discounts',
     free: 'Free',
+    customEventRequest: 'Custom Event Request',
+    customEventDesc: 'Planning a wedding, Njangi, or corporate event? Get a tailored quote with flexible delivery.',
+    customEventGuests: 'Number of Guests',
+    customEventGuestsPlaceholder: 'e.g. 150',
+    customEventBudget: 'Budget (XAF)',
+    customEventBudgetPlaceholder: 'e.g. 200000',
+    customEventMenu: 'Special Menu Requests',
+    customEventMenuPlaceholder: 'e.g. 60% Achu yellow soup, 40% Kati-Kati, vegetarian options...',
+    taxiCharter: 'Taxi Charter Delivery Required',
+    taxiCharterDesc: 'For large bulk shipments requiring a chartered taxi',
+    customEventSubmit: 'Submit Event Request',
+    customEventSubmitted: 'Event request submitted! We will match you with a cook and send a tailored quote via SMS/WhatsApp.',
+    customEventName: 'Contact Name',
+    customEventPhone: 'Phone Number',
+    customEventQuarter: 'Delivery Quarter',
+    customEventDate: 'Event Date',
+    mealTotal: 'Meal Total',
+    motorbikeDelivery: 'Quarter Motorbike Delivery',
+    taxiCharterDelivery: 'Taxi Charter Delivery',
+    deliveryMethod: 'Delivery Method',
+    deliveryMoto: 'Motorbike (1,000 XAF)',
+    deliveryTaxi: 'Taxi Charter (5,000 XAF)',
+    splashTagline: 'Grassfield Delicacies, Delivered Hot',
   },
   fr: {
     appName: 'Achu & Kati-Kati Express',
@@ -305,7 +354,7 @@ export const dict: Record<Lang, Dict> = {
     navVendor: 'Vendeur',
     heroPill: 'Délices Grassfield, Livrés Chauds',
     heroSubtitle:
-      "Commandez de l'Achu style Bamenda, soupe jaune & noire, et poulet Kati-Kati chez des cuisiniers locaux de Douala.",
+      "Commandez l'Achu authentique style Bamenda avec sauce jaune ou noire, et le Fufu Corn et Kati-Kati auprès des cuisiniers locaux de Douala",
     searchPlaceholder: 'Rechercher des vendeurs ou plats à Douala...',
     allQuarters: 'Tous les Quartiers',
     featurePoundedTitle: 'Fraîchement Pilé',
@@ -436,15 +485,43 @@ export const dict: Record<Lang, Dict> = {
     walletBalance: 'Solde du Portefeuille',
     totalAfterDiscounts: 'Total Après Remises',
     free: 'Gratuit',
+    customEventRequest: 'Demande d\'Événement Personnalisée',
+    customEventDesc: 'Mariage, Njangi ou événement d\'entreprise? Obtenez un devis adapté avec livraison flexible.',
+    customEventGuests: 'Nombre d\'Invités',
+    customEventGuestsPlaceholder: 'ex. 150',
+    customEventBudget: 'Budget (XAF)',
+    customEventBudgetPlaceholder: 'ex. 200000',
+    customEventMenu: 'Demandes de Menu Spéciales',
+    customEventMenuPlaceholder: 'ex. 60% Achu soupe jaune, 40% Kati-Kati, options végétariennes...',
+    taxiCharter: 'Livraison par Taxi Charter Requise',
+    taxiCharterDesc: 'Pour les grandes expéditions en gros nécessitant un taxi affrété',
+    customEventSubmit: 'Soumettre la Demande',
+    customEventSubmitted: 'Demande envoyée! Nous vous mettrons en relation avec un cuisinier et enverrons un devis via SMS/WhatsApp.',
+    customEventName: 'Nom de Contact',
+    customEventPhone: 'Numéro de Téléphone',
+    customEventQuarter: 'Quartier de Livraison',
+    customEventDate: 'Date d\'Événement',
+    mealTotal: 'Total Repas',
+    motorbikeDelivery: 'Livraison par Moto dans le Quartier',
+    taxiCharterDelivery: 'Livraison par Taxi Charter',
+    deliveryMethod: 'Méthode de Livraison',
+    deliveryMoto: 'Moto (1.000 XAF)',
+    deliveryTaxi: 'Taxi Charter (5.000 XAF)',
+    splashTagline: 'Délices Grassfield, Livrés Chauds',
   },
 };
 
 export const QUARTERS = [
+  'Bonaberi',
   'Makepe',
-  'Bonapriso',
+  'Bonamoussadi',
+  'Kotto',
+  'Logbessou',
+  'Logpom',
   'Akwa',
   'Bonanjo',
-  'Kotto',
+  'Bonapriso',
   'Ndogbong',
-  'Ange Raphaël',
+  'Bassa',
+  'Deido',
 ];

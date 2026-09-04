@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LanguageProvider } from '@/context/LanguageContext';
 import { Header } from '@/components/Header';
 import { BottomNav } from '@/components/BottomNav';
@@ -8,15 +8,28 @@ import OrdersPage from '@/pages/OrdersPage';
 import CateringPage from '@/pages/CateringPage';
 import VendorPage from '@/pages/VendorPage';
 import { OrderModal } from '@/components/OrderModal';
+import SplashScreen from '@/components/SplashScreen';
 import type { Vendor } from '@/lib/types';
 
 function App() {
   const [tab, setTab] = useState<Tab>('home');
   const [orderVendor, setOrderVendor] = useState<Vendor | null>(null);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const seen = sessionStorage.getItem('akke_splash_shown');
+    if (seen) setShowSplash(false);
+  }, []);
+
+  function handleSplashDone() {
+    sessionStorage.setItem('akke_splash_shown', 'true');
+    setShowSplash(false);
+  }
 
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-[#FFFDF5] flex flex-col">
+        {showSplash && <SplashScreen onDone={handleSplashDone} />}
         <Header />
         <main className="flex-1 pb-20">
           {tab === 'home' && <HomePage onOrder={(v) => setOrderVendor(v)} />}
