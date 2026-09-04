@@ -314,10 +314,12 @@ function OrderModal({ vendor, onClose }: Props) {
                     <div className="space-y-2">
                       {ACHU_ADDONS.map((opt) => {
                         const labels: Record<string, string> = {
-                          tripe: t.addonTripe,
+                          beef_goat: t.addonBeefGoat,
                           canda: t.addonCanda,
+                          tripe: t.addonTripe,
+                          smoked_fish: t.addonSmokedFish,
+                          egusi: t.addonEgusi,
                           njakatu: t.addonNjakatu,
-                          njama_njama: t.addonNjamaNjama,
                           extra_pepper: t.addonExtraPepper,
                         };
                         const checked = achuAddons.includes(opt.id);
@@ -390,7 +392,12 @@ function OrderModal({ vendor, onClose }: Props) {
                       {KATI_KATI_ADDONS.map((opt) => {
                         const labels: Record<string, string> = {
                           extra_chicken: t.addonExtraChicken,
-                          njama_njama: t.addonNjamaNjama,
+                          beef_goat: t.addonBeefGoat,
+                          canda: t.addonCanda,
+                          tripe: t.addonTripe,
+                          smoked_fish: t.addonSmokedFish,
+                          egusi: t.addonEgusi,
+                          njakatu: t.addonNjakatu,
                           extra_pepper: t.addonExtraPepper,
                         };
                         const checked = katiAddons.includes(opt.id);

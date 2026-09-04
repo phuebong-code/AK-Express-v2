@@ -119,6 +119,9 @@ export interface Dict {
   addonNjamaNjama: string;
   addonExtraPepper: string;
   addonExtraChicken: string;
+  addonBeefGoat: string;
+  addonSmokedFish: string;
+  addonEgusi: string;
   baseSelection: string;
   baseStandard: string;
   baseExtraFufu: string;
@@ -169,6 +172,10 @@ export interface Dict {
   customEventPhone: string;
   customEventQuarter: string;
   customEventDate: string;
+  eventEstimate: string;
+  eventPerPerson: string;
+  eventPrivacyNote: string;
+  eventAutoTaxi: string;
   // Delivery breakdown
   mealTotal: string;
   motorbikeDelivery: string;
@@ -193,7 +200,7 @@ export const dict: Record<Lang, Dict> = {
       'Order authentic Bamenda-style Achu & yellow (Ndza Nikki) or black soup, Fufu Corn & Kati-Kati from local cooks in Douala',
     searchPlaceholder: 'Search vendors or dishes in Douala...',
     allQuarters: 'All Quarters',
-    featurePoundedTitle: 'Pounded Fresh',
+    featurePoundedTitle: 'Freshly Pounded',
     featurePoundedDesc: 'Daily, by local Douala cooks',
     featureFastTitle: 'Fast Pickup',
     featureFastDesc: '25–40 min to your quarter',
@@ -288,11 +295,14 @@ export const dict: Record<Lang, Dict> = {
     soupMix: 'Mix (Yellow + Black)',
     addOns: 'Optional Add-ons',
     addonTripe: 'Towel / Tripe',
-    addonCanda: 'Extra Meat / Cow Skin (Canda)',
-    addonNjakatu: 'Garden Egg / Njakatu',
+    addonCanda: 'Canda / Cow Skin',
+    addonNjakatu: 'Njakatu / Garden Egg',
     addonNjamaNjama: 'Vegetables / Njama Njama',
     addonExtraPepper: 'Extra Pepper',
     addonExtraChicken: 'Extra Kati-Kati Chicken',
+    addonBeefGoat: 'Beef / Goat Meat',
+    addonSmokedFish: 'Smoked Fish',
+    addonEgusi: 'Egusi Pudding / Cake',
     baseSelection: 'Base Selection',
     baseStandard: 'Standard Portion',
     baseExtraFufu: 'Extra Fufu (+500 XAF)',
@@ -343,6 +353,10 @@ export const dict: Record<Lang, Dict> = {
     deliveryMethod: 'Delivery Method',
     deliveryMoto: 'Motorbike (1,000 XAF)',
     deliveryTaxi: 'Taxi Charter (5,000 XAF)',
+    eventEstimate: 'Instant Price Estimate',
+    eventPerPerson: '~1,500 XAF per person',
+    eventPrivacyNote: 'All quotes are processed through Achu & Kati-Kati Express Escrow. Vendor identities remain protected.',
+    eventAutoTaxi: 'Taxi Charter auto-included for 30+ guests',
     splashTagline: 'Grassfield Delicacies, Delivered Hot',
   },
   fr: {
@@ -357,7 +371,7 @@ export const dict: Record<Lang, Dict> = {
       "Commandez l'Achu authentique style Bamenda avec sauce jaune ou noire, et le Fufu Corn et Kati-Kati auprès des cuisiniers locaux de Douala",
     searchPlaceholder: 'Rechercher des vendeurs ou plats à Douala...',
     allQuarters: 'Tous les Quartiers',
-    featurePoundedTitle: 'Fraîchement Pilé',
+    featurePoundedTitle: 'Pilé à la minute',
     featurePoundedDesc: 'Quotidiennement, par des cuisiniers de Douala',
     featureFastTitle: 'Retrait Rapide',
     featureFastDesc: '25–40 min vers votre quartier',
@@ -451,12 +465,15 @@ export const dict: Record<Lang, Dict> = {
     soupBlack: 'Soupe Noire',
     soupMix: 'Mixte (Jaune + Noire)',
     addOns: 'Suppléments Optionnels',
-    addonTripe: 'Tripe / Towel',
-    addonCanda: 'Viande Supp / Peau de Boeuf (Canda)',
-    addonNjakatu: 'Aubergine / Njakatu',
+    addonTripe: 'Serviette',
+    addonCanda: 'Kanda / Peau de vache',
+    addonNjakatu: 'Njakatu',
     addonNjamaNjama: 'Légumes / Njama Njama',
     addonExtraPepper: 'Piment Supplémentaire',
     addonExtraChicken: 'Poulet Kati-Kati Supp',
+    addonBeefGoat: 'Viande de bœuf / chèvre',
+    addonSmokedFish: 'Poisson fumé',
+    addonEgusi: 'Egusi Pudding / Gâteau',
     baseSelection: 'Choix de Base',
     baseStandard: 'Portion Standard',
     baseExtraFufu: 'Fufu Supp (+500 XAF)',
@@ -507,6 +524,10 @@ export const dict: Record<Lang, Dict> = {
     deliveryMethod: 'Méthode de Livraison',
     deliveryMoto: 'Moto (1.000 XAF)',
     deliveryTaxi: 'Taxi Charter (5.000 XAF)',
+    eventEstimate: 'Estimation Instantanée du Prix',
+    eventPerPerson: '~1.500 XAF par personne',
+    eventPrivacyNote: 'Tous les devis sont traités via l\'Escrow Achu & Kati-Kati Express. Les identités des vendeurs restent protégées.',
+    eventAutoTaxi: 'Taxi Charter automatique pour 30+ invités',
     splashTagline: 'Délices Grassfield, Livrés Chauds',
   },
 };

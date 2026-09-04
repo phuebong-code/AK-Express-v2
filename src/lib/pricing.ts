@@ -47,10 +47,12 @@ export const ACHU_SOUP_OPTIONS: { id: string; price: number }[] = [
 ];
 
 export const ACHU_ADDONS: AddOnOption[] = [
-  { id: 'tripe', price: 500 },
+  { id: 'beef_goat', price: 1000 },
   { id: 'canda', price: 500 },
+  { id: 'tripe', price: 500 },
+  { id: 'smoked_fish', price: 500 },
+  { id: 'egusi', price: 500 },
   { id: 'njakatu', price: 300 },
-  { id: 'njama_njama', price: 500 },
   { id: 'extra_pepper', price: 0 },
 ];
 
@@ -61,7 +63,12 @@ export const KATI_KATI_BASE_OPTIONS: { id: string; price: number }[] = [
 
 export const KATI_KATI_ADDONS: AddOnOption[] = [
   { id: 'extra_chicken', price: 1000 },
-  { id: 'njama_njama', price: 500 },
+  { id: 'beef_goat', price: 1000 },
+  { id: 'canda', price: 500 },
+  { id: 'tripe', price: 500 },
+  { id: 'smoked_fish', price: 500 },
+  { id: 'egusi', price: 500 },
+  { id: 'njakatu', price: 300 },
   { id: 'extra_pepper', price: 0 },
 ];
 

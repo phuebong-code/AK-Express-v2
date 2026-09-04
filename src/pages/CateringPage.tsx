@@ -58,6 +58,10 @@ export default function CateringPage() {
   const [eventTaxi, setEventTaxi] = useState(false);
   const [eventSubmitted, setEventSubmitted] = useState(false);
   const eventFormValid = !!(eventGuests && eventBudget && eventName && eventPhone && eventQuarter && eventDate);
+  const eventGuestsNum = Number(eventGuests) || 0;
+  const EVENT_PER_PERSON = 1500;
+  const eventEstimate = eventGuestsNum * EVENT_PER_PERSON;
+  const autoTaxi = eventGuestsNum > 30;
   const customFormValid = !!(customGuests && customBudget && customName && customPhone && customQuarter && customDate);
   const formValid = !!(vendorId && name && phone && quarter && date);
 
@@ -353,6 +357,17 @@ export default function CateringPage() {
                   />
                 </FormField>
               </div>
+              {/* Instant price estimate */}
+              {eventGuestsNum > 0 && (
+                <div className="bg-amber-50 rounded-xl p-4 border border-amber-200 animate-[fadeIn_0.2s_ease-out]">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Wallet className="w-4 h-4 text-amber-600" />
+                    <span className="text-xs font-bold text-[#1E293B]">{t.eventEstimate}</span>
+                  </div>
+                  <p className="text-2xl font-extrabold text-amber-600">{formatXaf(eventEstimate)}</p>
+                  <p className="text-[10px] text-slate-500 mt-1">{t.eventPerPerson}</p>
+                </div>
+              )}
               <FormField label={t.customEventMenu} icon={UtensilsCrossed}>
                 <textarea
                   value={eventMenu}
@@ -404,30 +419,43 @@ export default function CateringPage() {
                   />
                 </FormField>
               </div>
+              {/* Auto taxi charter note */}
+              {autoTaxi && (
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-red-50 rounded-xl border border-red-200 animate-[fadeIn_0.2s_ease-out]">
+                  <Car className="w-4 h-4 text-[#B91C1C] shrink-0" />
+                  <p className="text-[10px] text-[#B91C1C] font-semibold">{t.eventAutoTaxi}</p>
+                </div>
+              )}
               {/* Taxi charter toggle */}
               <button
-                onClick={() => setEventTaxi(!eventTaxi)}
+                onClick={() => !autoTaxi && setEventTaxi(!eventTaxi)}
+                disabled={autoTaxi}
                 className={`w-full flex items-center gap-3 p-4 rounded-2xl border-2 transition-all ${
-                  eventTaxi
+                  (eventTaxi || autoTaxi)
                     ? 'border-[#B91C1C] bg-red-50'
                     : 'border-amber-100 bg-white hover:border-amber-200'
-                }`}
+                } ${autoTaxi ? 'opacity-75' : ''}`}
               >
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                  eventTaxi ? 'bg-[#B91C1C]' : 'bg-amber-50'
+                  (eventTaxi || autoTaxi) ? 'bg-[#B91C1C]' : 'bg-amber-50'
                 }`}>
-                  <Car className={`w-5 h-5 ${eventTaxi ? 'text-white' : 'text-amber-500'}`} />
+                  <Car className={`w-5 h-5 ${(eventTaxi || autoTaxi) ? 'text-white' : 'text-amber-500'}`} />
                 </div>
                 <div className="flex-1 text-left">
                   <p className="text-sm font-bold text-[#1E293B]">{t.taxiCharter}</p>
                   <p className="text-[10px] text-slate-500 leading-tight mt-0.5">{t.taxiCharterDesc}</p>
                 </div>
                 <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
-                  eventTaxi ? 'border-[#B91C1C] bg-[#B91C1C]' : 'border-slate-300'
+                  (eventTaxi || autoTaxi) ? 'border-[#B91C1C] bg-[#B91C1C]' : 'border-slate-300'
                 }`}>
-                  {eventTaxi && <CheckCircle2 className="w-4 h-4 text-white" />}
+                  {(eventTaxi || autoTaxi) && <CheckCircle2 className="w-4 h-4 text-white" />}
                 </div>
               </button>
+              {/* Privacy note */}
+              <div className="flex items-start gap-2 bg-blue-50 rounded-xl p-3 border border-blue-100">
+                <Lock className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+                <p className="text-[10px] text-blue-700 leading-relaxed">{t.eventPrivacyNote}</p>
+              </div>
               <button
                 onClick={() => {
                   if (!eventFormValid) return;
