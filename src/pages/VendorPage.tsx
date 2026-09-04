@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useLang } from '@/context/LanguageContext';
 import { supabase } from '@/lib/supabase';
 import { Order, CateringRequest } from '@/lib/types';
-import { formatXaf } from '@/lib/pricing';
+import { formatXaf, ACHU_ADDONS, KATI_KATI_ADDONS, BASE_DISH_PRICE } from '@/lib/pricing';
 import {
   Store,
   Lock,
@@ -13,6 +13,9 @@ import {
   Wallet,
   TrendingUp,
   Utensils,
+  Tag,
+  Save,
+  Info,
 } from 'lucide-react';
 
 export default function VendorPage() {
@@ -23,6 +26,31 @@ export default function VendorPage() {
   const [pendingEscrow, setPendingEscrow] = useState(0);
   const [availableCashout, setAvailableCashout] = useState(0);
   const [releasedCount, setReleasedCount] = useState(0);
+  const [basePrice, setBasePrice] = useState(String(BASE_DISH_PRICE));
+  const [addonPrices, setAddonPrices] = useState<Record<string, string>>({});
+  const [pricesSaved, setPricesSaved] = useState(false);
+
+  const ALL_ADDONS = [
+    ...ACHU_ADDONS,
+    ...KATI_KATI_ADDONS.filter((a) => !ACHU_ADDONS.find((b) => b.id === a.id)),
+  ];
+  const addonLabelMap: Record<string, string> = {
+    beef: t.addonBeef,
+    goat: t.addonGoat,
+    canda: t.addonCanda,
+    tripe: t.addonTripe,
+    smoked_fish: t.addonSmokedFish,
+    egusi: t.addonEgusi,
+    njakatu: t.addonNjakatu,
+    extra_pepper: t.addonExtraPepper,
+    extra_chicken: t.addonExtraChicken,
+  };
+
+  useEffect(() => {
+    const defaults: Record<string, string> = {};
+    ALL_ADDONS.forEach((a) => { defaults[a.id] = String(a.price); });
+    setAddonPrices(defaults);
+  }, []);
 
   const fetchBalances = useCallback(async () => {
     const [ordersRes, cateringRes, releasedOrders, releasedCatering] = await Promise.all([
@@ -118,6 +146,15 @@ export default function VendorPage() {
         </p>
       </div>
 
+      {/* Platform fee info */}
+      <div className="bg-blue-50 rounded-2xl border border-blue-100 p-4 mb-4 flex items-start gap-3">
+        <Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+        <div>
+          <p className="text-xs font-bold text-blue-700">{t.vendorPlatformFeeInfo}</p>
+          <p className="text-[10px] text-blue-600 mt-1">{t.vendorPlatformFeeDesc}</p>
+        </div>
+      </div>
+
       {/* PIN input */}
       <div className="bg-white rounded-2xl shadow-sm border border-amber-100 p-5">
         <label className="text-xs font-semibold text-[#1E293B] mb-2 flex items-center gap-1.5">
@@ -204,6 +241,58 @@ export default function VendorPage() {
           <div className="flex items-center gap-2 text-xs text-green-600">
             <Utensils className="w-3.5 h-3.5" />
             <span>{releasedCount} orders fulfilled</span>
+          </div>
+        )}
+      </div>
+      {/* Menu & Pricing Management */}
+      <div className="mt-4 bg-white rounded-2xl shadow-sm border border-amber-100 p-5">
+        <div className="flex items-center gap-2 mb-1">
+          <Tag className="w-4 h-4 text-amber-500" />
+          <h3 className="text-sm font-bold text-[#1E293B]">{t.vendorMenuManagement}</h3>
+        </div>
+        <p className="text-[10px] text-slate-500 mb-4">{t.vendorMenuManagementDesc}</p>
+
+        <div className="mb-4">
+          <label className="text-xs font-semibold text-[#1E293B] mb-1.5 block">{t.vendorBaseDishPrice}</label>
+          <input
+            type="number"
+            value={basePrice}
+            onChange={(e) => setBasePrice(e.target.value.replace(/\D/g, '').slice(0, 6))}
+            inputMode="numeric"
+            className="w-full px-4 py-2.5 bg-amber-50/50 rounded-xl border border-amber-100 text-sm font-bold text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-amber-400"
+          />
+        </div>
+
+        <div className="space-y-2.5 mb-4">
+          <label className="text-xs font-semibold text-[#1E293B] block">{t.vendorAddonPrices}</label>
+          {ALL_ADDONS.map((addon) => (
+            <div key={addon.id} className="flex items-center justify-between gap-3">
+              <span className="text-xs text-slate-600 flex-1">{addonLabelMap[addon.id] || addon.id}</span>
+              <input
+                type="number"
+                value={addonPrices[addon.id] ?? '0'}
+                onChange={(e) => setAddonPrices((prev) => ({ ...prev, [addon.id]: e.target.value.replace(/\D/g, '').slice(0, 5) }))}
+                inputMode="numeric"
+                className="w-24 px-3 py-2 bg-amber-50/50 rounded-lg border border-amber-100 text-xs font-bold text-[#1E293B] text-right focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </div>
+          ))}
+        </div>
+
+        <button
+          onClick={() => {
+            setPricesSaved(true);
+            setTimeout(() => setPricesSaved(false), 3000);
+          }}
+          className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors shadow-lg shadow-amber-500/30 flex items-center justify-center gap-2"
+        >
+          <Save className="w-4 h-4" />
+          {t.vendorSavePrices}
+        </button>
+        {pricesSaved && (
+          <div className="mt-3 bg-green-50 rounded-xl p-3 flex items-center gap-2 animate-[fadeIn_0.3s_ease-out]">
+            <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
+            <p className="text-sm text-green-600 font-semibold">{t.vendorPricesSaved}</p>
           </div>
         )}
       </div>

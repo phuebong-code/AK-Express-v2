@@ -65,7 +65,8 @@ export interface Dict {
   landmarkPlaceholder: string;
   orderSummary: string;
   totalFoodPrice: string;
-  momoDeposit: string;
+  mobileMoneyFee: string;
+  mobileMoneyFeeNote: string;
   totalPayable: string;
   platformFee: string;
   cookEarnings: string;
@@ -84,6 +85,14 @@ export interface Dict {
   pinInvalid: string;
   releasedOrders: string;
   noReleased: string;
+  vendorPlatformFeeInfo: string;
+  vendorPlatformFeeDesc: string;
+  vendorMenuManagement: string;
+  vendorMenuManagementDesc: string;
+  vendorBaseDishPrice: string;
+  vendorAddonPrices: string;
+  vendorSavePrices: string;
+  vendorPricesSaved: string;
   // Payment modal
   payWith: string;
   mtnMoney: string;
@@ -119,7 +128,8 @@ export interface Dict {
   addonNjamaNjama: string;
   addonExtraPepper: string;
   addonExtraChicken: string;
-  addonBeefGoat: string;
+  addonBeef: string;
+  addonGoat: string;
   addonSmokedFish: string;
   addonEgusi: string;
   baseSelection: string;
@@ -249,7 +259,8 @@ export const dict: Record<Lang, Dict> = {
     landmarkPlaceholder: 'e.g. near Collège Lumière',
     orderSummary: 'Order Summary',
     totalFoodPrice: 'Total Food Price',
-    momoDeposit: 'MoMo Deposit Processing (~2%)',
+    mobileMoneyFee: 'Mobile Money Transaction Fee',
+    mobileMoneyFeeNote: 'Handled via operator USSD prompt',
     totalPayable: 'Total Payable by Customer',
     platformFee: 'Platform Fee (15%)',
     cookEarnings: 'Cook Net Earnings (~85%)',
@@ -268,6 +279,14 @@ export const dict: Record<Lang, Dict> = {
     pinInvalid: 'Invalid PIN. No matching held order found.',
     releasedOrders: 'Released Orders',
     noReleased: 'No funds released yet.',
+    vendorPlatformFeeInfo: 'Platform Fee: 15% per transaction',
+    vendorPlatformFeeDesc: 'This fee is deducted from your earnings on each order.',
+    vendorMenuManagement: 'Menu & Pricing Management',
+    vendorMenuManagementDesc: 'Set your own custom prices for base dishes and individual add-ons.',
+    vendorBaseDishPrice: 'Base Dish Price (XAF)',
+    vendorAddonPrices: 'Add-on Prices (XAF)',
+    vendorSavePrices: 'Save Prices',
+    vendorPricesSaved: 'Prices saved! Your menu has been updated.',
     payWith: 'Pay With',
     mtnMoney: 'MTN MoMo Escrow',
     orangeMoney: 'Orange Money Escrow',
@@ -300,9 +319,10 @@ export const dict: Record<Lang, Dict> = {
     addonNjamaNjama: 'Vegetables / Njama Njama',
     addonExtraPepper: 'Extra Pepper',
     addonExtraChicken: 'Extra Kati-Kati Chicken',
-    addonBeefGoat: 'Beef / Goat Meat',
+    addonBeef: 'Beef / Cow Meat',
+    addonGoat: 'Goat Meat',
     addonSmokedFish: 'Smoked Fish',
-    addonEgusi: 'Egusi Pudding / Cake',
+    addonEgusi: 'Egusi Pudding',
     baseSelection: 'Base Selection',
     baseStandard: 'Standard Portion',
     baseExtraFufu: 'Extra Fufu (+500 XAF)',
@@ -420,7 +440,8 @@ export const dict: Record<Lang, Dict> = {
     landmarkPlaceholder: 'ex. près du Collège Lumière',
     orderSummary: 'Récapitulatif de Commande',
     totalFoodPrice: 'Prix Total de la Nourriture',
-    momoDeposit: 'Dépôt MoMo (~2%)',
+    mobileMoneyFee: 'Frais de Transaction Mobile Money',
+    mobileMoneyFeeNote: 'Via prompt USSD opérateur',
     totalPayable: 'Total à Payer par le Client',
     platformFee: 'Frais de Plateforme (15%)',
     cookEarnings: 'Bénéfices Net Cuisinier (~85%)',
@@ -439,6 +460,14 @@ export const dict: Record<Lang, Dict> = {
     pinInvalid: 'PIN invalide. Aucune commande bloquée correspondante trouvée.',
     releasedOrders: 'Commandes Libérées',
     noReleased: 'Aucun fonds libéré pour le moment.',
+    vendorPlatformFeeInfo: 'Frais de Plateforme: 15% par transaction',
+    vendorPlatformFeeDesc: 'Ces frais sont déduits de vos gains sur chaque commande.',
+    vendorMenuManagement: 'Gestion Menu & Tarifs',
+    vendorMenuManagementDesc: 'Définissez vos propres prix pour les plats de base et suppléments.',
+    vendorBaseDishPrice: 'Prix de Base du Plat (XAF)',
+    vendorAddonPrices: 'Prix des Suppléments (XAF)',
+    vendorSavePrices: 'Sauvegarder les Prix',
+    vendorPricesSaved: 'Prix sauvegardés! Votre menu a été mis à jour.',
     payWith: 'Payer Avec',
     mtnMoney: 'MTN MoMo Escrow',
     orangeMoney: 'Orange Money Escrow',
@@ -471,9 +500,10 @@ export const dict: Record<Lang, Dict> = {
     addonNjamaNjama: 'Légumes / Njama Njama',
     addonExtraPepper: 'Piment Supplémentaire',
     addonExtraChicken: 'Poulet Kati-Kati Supp',
-    addonBeefGoat: 'Viande de bœuf / chèvre',
+    addonBeef: 'Viande de bœuf',
+    addonGoat: 'Viande de chèvre',
     addonSmokedFish: 'Poisson fumé',
-    addonEgusi: 'Egusi Pudding / Gâteau',
+    addonEgusi: 'Egusi Pudding',
     baseSelection: 'Choix de Base',
     baseStandard: 'Portion Standard',
     baseExtraFufu: 'Fufu Supp (+500 XAF)',

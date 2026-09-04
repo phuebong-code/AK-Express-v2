@@ -606,26 +606,12 @@ export default function CateringPage() {
         <h3 className="text-sm font-bold text-[#1E293B] mb-4">{t.orderSummary}</h3>
         <div className="space-y-2.5">
           <SummaryRow label={`${t.totalFoodPrice} (${t.people(selectedPeople)})`} value={formatXaf(pricing.total)} />
-          <SummaryRow label={t.momoDeposit} value="Covered" muted />
+          <SummaryRow label={t.mobileMoneyFee} value={t.mobileMoneyFeeNote} muted />
           <div className="border-t border-amber-100 my-3" />
           <div className="flex items-center justify-between">
             <span className="text-sm font-bold text-[#1E293B]">{t.totalPayable}</span>
             <span className="text-lg font-extrabold text-amber-600">{formatXaf(pricing.total)}</span>
           </div>
-        </div>
-        <div className="mt-4 bg-amber-50/60 rounded-xl p-3 space-y-1.5">
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="text-slate-500">{t.platformFee}: {formatXaf(pricing.commission)}</span>
-          </div>
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="text-slate-500 flex items-center gap-1">
-              <Lock className="w-3 h-3 text-amber-500" />
-              {t.cookEarnings}: ~{formatXaf(pricing.cookPayout)}
-            </span>
-          </div>
-          <p className="text-[10px] text-amber-600 italic pt-1">
-            {t.statusEscrow}
-          </p>
         </div>
       </div>
 

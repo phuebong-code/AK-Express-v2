@@ -314,7 +314,8 @@ function OrderModal({ vendor, onClose }: Props) {
                     <div className="space-y-2">
                       {ACHU_ADDONS.map((opt) => {
                         const labels: Record<string, string> = {
-                          beef_goat: t.addonBeefGoat,
+                          beef: t.addonBeef,
+                          goat: t.addonGoat,
                           canda: t.addonCanda,
                           tripe: t.addonTripe,
                           smoked_fish: t.addonSmokedFish,
@@ -392,7 +393,8 @@ function OrderModal({ vendor, onClose }: Props) {
                       {KATI_KATI_ADDONS.map((opt) => {
                         const labels: Record<string, string> = {
                           extra_chicken: t.addonExtraChicken,
-                          beef_goat: t.addonBeefGoat,
+                          beef: t.addonBeef,
+                          goat: t.addonGoat,
                           canda: t.addonCanda,
                           tripe: t.addonTripe,
                           smoked_fish: t.addonSmokedFish,
@@ -559,17 +561,13 @@ function OrderModal({ vendor, onClose }: Props) {
                   </div>
                 )}
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-500">{t.momoDeposit}</span>
-                  <span className="text-slate-400">Covered</span>
+                  <span className="text-slate-500">{t.mobileMoneyFee}</span>
+                  <span className="text-slate-400 text-[10px]">{t.mobileMoneyFeeNote}</span>
                 </div>
                 <div className="border-t border-amber-100 my-2" />
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-bold text-[#1E293B]">{t.totalPayable}</span>
                   <span className="text-lg font-extrabold text-amber-600">{formatXaf(finalTotal)}</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-[10px] text-amber-600 pt-1">
-                  <Lock className="w-3 h-3" />
-                  <span>{t.cookEarnings}: ~{formatXaf(pricing.cookPayout)} ({t.statusEscrow})</span>
                 </div>
               </div>
 
