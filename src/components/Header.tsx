@@ -16,7 +16,7 @@ function Header() {
             <h1 className="text-[#1E293B] font-bold text-sm tracking-tight">
               Achu & Kati-Kati
             </h1>
-            <p className="text-amber-600 text-[10px] font-medium">Express</p>
+            <p className="text-amber-600 text-[10px] font-medium">Douala Express</p>
           </div>
         </div>
         <div className="flex items-center gap-1 bg-white rounded-full border border-amber-200 p-0.5 shadow-sm">
