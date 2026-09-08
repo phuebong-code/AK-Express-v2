@@ -126,6 +126,7 @@ export interface Dict {
   addonCanda: string;
   addonNjakatu: string;
   addonNjamaNjama: string;
+  addonBitterleaf: string;
   addonExtraPepper: string;
   addonExtraChicken: string;
   addonBeef: string;
@@ -316,7 +317,8 @@ export const dict: Record<Lang, Dict> = {
     addonTripe: 'Towel / Tripe',
     addonCanda: 'Canda / Cow Skin',
     addonNjakatu: 'Njakatu / Garden Egg',
-    addonNjamaNjama: 'Vegetables / Njama Njama',
+    addonNjamaNjama: 'Njama-Njama / Huckleberry',
+    addonBitterleaf: 'Bitterleaf Soup',
     addonExtraPepper: 'Extra Pepper',
     addonExtraChicken: 'Extra Kati-Kati Chicken',
     addonBeef: 'Beef / Cow Meat',
@@ -388,7 +390,7 @@ export const dict: Record<Lang, Dict> = {
     navVendor: 'Vendeur',
     heroPill: 'Délices Grassfield, Livrés Chauds',
     heroSubtitle:
-      "Commandez l'Achu authentique style Bamenda avec sauce jaune ou noire, et le Fufu Corn et Kati-Kati auprès des cuisiniers locaux de Douala",
+      "Commandez l'Achu authentique style Bamenda avec sauce jaune (Ndza Nikki) ou noire, le Fufu Corn et Kati-Kati auprès des cuisiniers locaux de Douala",
     searchPlaceholder: 'Rechercher des vendeurs ou plats à Douala...',
     allQuarters: 'Tous les Quartiers',
     featurePoundedTitle: 'Pilé à la minute',
@@ -489,15 +491,16 @@ export const dict: Record<Lang, Dict> = {
     servesFullMenu: 'Menu Complet',
     achuSpecial: 'Achu Spécial',
     fufuKatiKati: 'Fufu de Maïs & Kati-Kati',
-    soupSelection: 'Choix de Soupe',
-    soupYellow: 'Soupe Jaune',
-    soupBlack: 'Soupe Noire',
+    soupSelection: 'Choix de Sauce',
+    soupYellow: 'Sauce Jaune',
+    soupBlack: 'Sauce Noire',
     soupMix: 'Mixte (Jaune + Noire)',
     addOns: 'Suppléments Optionnels',
     addonTripe: 'Serviette',
     addonCanda: 'Kanda / Peau de vache',
     addonNjakatu: 'Njakatu',
-    addonNjamaNjama: 'Légumes / Njama Njama',
+    addonNjamaNjama: 'Njama-Njama / Légumes',
+    addonBitterleaf: 'Sauce Feuille Amère',
     addonExtraPepper: 'Piment Supplémentaire',
     addonExtraChicken: 'Poulet Kati-Kati Supp',
     addonBeef: 'Viande de bœuf',
@@ -507,7 +510,7 @@ export const dict: Record<Lang, Dict> = {
     baseSelection: 'Choix de Base',
     baseStandard: 'Portion Standard',
     baseExtraFufu: 'Fufu Supp (+500 XAF)',
-    selectSoup: 'Veuillez choisir une soupe',
+    selectSoup: 'Veuillez choisir une sauce',
     quantity: 'Quantité',
     xaf: 'XAF',
     loading: 'Chargement...',
@@ -521,7 +524,7 @@ export const dict: Record<Lang, Dict> = {
     customBudget: 'Budget (XAF)',
     customBudgetPlaceholder: 'ex. 90000',
     customMenuRequests: 'Demandes de Menu Spéciales',
-    customMenuPlaceholder: 'ex. 50% Achu soupe jaune, 50% Kati-Kati, piment supplémentaire pour tous...',
+    customMenuPlaceholder: 'ex. 50% Achu sauce jaune, 50% Kati-Kati, piment supplémentaire pour tous...',
     customSubmit: 'Soumettre la Demande',
     customSubmitted: 'Demande envoyée! Nous vous mettrons en relation avec un cuisinier et vous notifierons par SMS/WhatsApp.',
     dispatchNotified: 'Capitaine de Quartier & Vendeur Notifiés par SMS/WhatsApp Automatique',
@@ -539,7 +542,7 @@ export const dict: Record<Lang, Dict> = {
     customEventBudget: 'Budget (XAF)',
     customEventBudgetPlaceholder: 'ex. 200000',
     customEventMenu: 'Demandes de Menu Spéciales',
-    customEventMenuPlaceholder: 'ex. 60% Achu soupe jaune, 40% Kati-Kati, options végétariennes...',
+    customEventMenuPlaceholder: 'ex. 60% Achu sauce jaune, 40% Kati-Kati, options végétariennes...',
     taxiCharter: 'Livraison par Taxi Charter Requise',
     taxiCharterDesc: 'Pour les grandes expéditions en gros nécessitant un taxi affrété',
     customEventSubmit: 'Soumettre la Demande',

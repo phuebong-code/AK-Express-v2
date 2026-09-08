@@ -400,6 +400,8 @@ function OrderModal({ vendor, onClose }: Props) {
                           smoked_fish: t.addonSmokedFish,
                           egusi: t.addonEgusi,
                           njakatu: t.addonNjakatu,
+                          njama_njama: t.addonNjamaNjama,
+                          bitterleaf: t.addonBitterleaf,
                           extra_pepper: t.addonExtraPepper,
                         };
                         const checked = katiAddons.includes(opt.id);

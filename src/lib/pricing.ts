@@ -71,6 +71,8 @@ export const KATI_KATI_ADDONS: AddOnOption[] = [
   { id: 'smoked_fish', price: 500 },
   { id: 'egusi', price: 500 },
   { id: 'njakatu', price: 300 },
+  { id: 'njama_njama', price: 500 },
+  { id: 'bitterleaf', price: 500 },
   { id: 'extra_pepper', price: 0 },
 ];
 
