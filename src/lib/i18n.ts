@@ -134,8 +134,8 @@ export interface Dict {
   addonSmokedFish: string;
   addonEgusi: string;
   baseSelection: string;
-  baseStandard: string;
-  baseExtraFufu: string;
+  baseNjamaNjama: string;
+  baseBitterleaf: string;
   selectSoup: string;
   quantity: string;
   // Misc
@@ -326,8 +326,8 @@ export const dict: Record<Lang, Dict> = {
     addonSmokedFish: 'Smoked Fish',
     addonEgusi: 'Egusi Pudding',
     baseSelection: 'Base Selection',
-    baseStandard: 'Standard Portion',
-    baseExtraFufu: 'Extra Fufu (+500 XAF)',
+    baseNjamaNjama: 'Fufu Corn & Kati-Kati with Njama-Njama',
+    baseBitterleaf: 'Fufu Corn & Kati-Kati with Bitterleaf Soup',
     selectSoup: 'Please select a soup',
     quantity: 'Quantity',
     xaf: 'XAF',
@@ -508,8 +508,8 @@ export const dict: Record<Lang, Dict> = {
     addonSmokedFish: 'Poisson fumé',
     addonEgusi: 'Egusi Pudding',
     baseSelection: 'Choix de Base',
-    baseStandard: 'Portion Standard',
-    baseExtraFufu: 'Fufu Supp (+500 XAF)',
+    baseNjamaNjama: 'Fufu Corn & Kati-Kati avec Njama-Njama',
+    baseBitterleaf: 'Fufu Corn & Kati-Kati avec Sauce Feuille Amère',
     selectSoup: 'Veuillez choisir une sauce',
     quantity: 'Quantité',
     xaf: 'XAF',

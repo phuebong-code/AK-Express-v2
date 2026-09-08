@@ -53,7 +53,7 @@ function OrderModal({ vendor, onClose }: Props) {
   const [quantity, setQuantity] = useState(1);
   const [soupChoice, setSoupChoice] = useState<SoupChoice | ''>('');
   const [achuAddons, setAchuAddons] = useState<string[]>([]);
-  const [katiBase, setKatiBase] = useState<string>('standard');
+  const [katiBase, setKatiBase] = useState<string>('njama_njama');
   const [katiAddons, setKatiAddons] = useState<string[]>([]);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -102,8 +102,8 @@ function OrderModal({ vendor, onClose }: Props) {
         soupChoice === 'mix' ? t.soupMix : '';
       return `${t.achuSpecial}${soupLabel ? ' — ' + soupLabel : ''}`;
     }
-    const baseLabel = katiBase === 'extra_fufu' ? t.baseExtraFufu : t.baseStandard;
-    return `${t.fufuKatiKati} — ${baseLabel}`;
+    const baseLabel = katiBase === 'bitterleaf' ? t.baseBitterleaf : t.baseNjamaNjama;
+    return baseLabel;
   }
 
   function handlePayClick() {
@@ -360,8 +360,8 @@ function OrderModal({ vendor, onClose }: Props) {
                     <div className="space-y-2">
                       {KATI_KATI_BASE_OPTIONS.map((opt) => {
                         const labels: Record<string, string> = {
-                          standard: t.baseStandard,
-                          extra_fufu: t.baseExtraFufu,
+                          njama_njama: t.baseNjamaNjama,
+                          bitterleaf: t.baseBitterleaf,
                         };
                         return (
                           <button
@@ -400,8 +400,6 @@ function OrderModal({ vendor, onClose }: Props) {
                           smoked_fish: t.addonSmokedFish,
                           egusi: t.addonEgusi,
                           njakatu: t.addonNjakatu,
-                          njama_njama: t.addonNjamaNjama,
-                          bitterleaf: t.addonBitterleaf,
                           extra_pepper: t.addonExtraPepper,
                         };
                         const checked = katiAddons.includes(opt.id);

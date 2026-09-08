@@ -44,8 +44,6 @@ export default function VendorPage() {
     njakatu: t.addonNjakatu,
     extra_pepper: t.addonExtraPepper,
     extra_chicken: t.addonExtraChicken,
-    njama_njama: t.addonNjamaNjama,
-    bitterleaf: t.addonBitterleaf,
   };
 
   useEffect(() => {
