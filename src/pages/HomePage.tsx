@@ -6,6 +6,7 @@ import { QUARTERS } from '@/lib/i18n';
 import { getVendorImage, HERO_IMAGE } from '@/lib/images';
 import { formatXaf } from '@/lib/pricing';
 import { MOCK_VENDORS } from '@/lib/mockVendors';
+import ShareButton from '@/components/ShareButton';
 import {
   Search,
   Utensils,
@@ -184,6 +185,11 @@ export default function HomePage({ onOrder }: Props) {
           <FeatureCard icon={Truck} title={t.featureFastTitle} desc={t.featureFastDesc} />
           <FeatureCard icon={ShieldCheck} title={t.featureEscrowTitle} desc={t.featureEscrowDesc} />
         </div>
+      </div>
+
+      {/* Share App banner */}
+      <div className="px-5 mt-4">
+        <ShareButton variant="banner" />
       </div>
 
       {/* Vendors */}

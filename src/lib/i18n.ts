@@ -196,6 +196,9 @@ export interface Dict {
   deliveryTaxi: string;
   // Splash
   splashTagline: string;
+  // Share
+  shareApp: string;
+  linkCopied: string;
 }
 
 export const dict: Record<Lang, Dict> = {
@@ -380,6 +383,8 @@ export const dict: Record<Lang, Dict> = {
     eventPrivacyNote: 'All quotes are processed through Achu & Kati-Kati Express Escrow. Vendor identities remain protected.',
     eventAutoTaxi: 'Taxi Charter auto-included for 30+ guests',
     splashTagline: 'Grassfield Delicacies, Delivered Hot',
+    shareApp: 'Share App',
+    linkCopied: 'Link copied to clipboard!',
   },
   fr: {
     appName: 'Achu & Kati-Kati Express',
@@ -562,6 +567,8 @@ export const dict: Record<Lang, Dict> = {
     eventPrivacyNote: 'Tous les devis sont traités via l\'Escrow Achu & Kati-Kati Express. Les identités des vendeurs restent protégées.',
     eventAutoTaxi: 'Taxi Charter automatique pour 30+ invités',
     splashTagline: 'Délices Grassfield, Livrés Chauds',
+    shareApp: 'Partager l\'App',
+    linkCopied: 'Lien copié dans le presse-papier !',
   },
 };
 
