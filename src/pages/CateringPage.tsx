@@ -9,7 +9,6 @@ import { MOCK_VENDORS } from '@/lib/mockVendors';
 import {
   UtensilsCrossed,
   Truck,
-  MessageCircle,
   CheckCircle2,
   Lock,
   Calendar,
@@ -111,16 +110,6 @@ export default function CateringPage() {
   function handlePayClick() {
     if (!formValid) return;
     setPayOpen(true);
-  }
-
-  function handleWhatsApp() {
-    if (!selectedVendor) return;
-    const msg = encodeURIComponent(
-      `Hello ${selectedVendor.name}, I'd like to order catering for ${selectedPeople} people (${formatXaf(
-        selectedOption.price,
-      )}) on ${date}. Name: ${name}, Quarter: ${quarter}.`,
-    );
-    window.open(`https://wa.me/237650000000?text=${msg}`, '_blank');
   }
 
   if (booked) {
@@ -626,12 +615,11 @@ export default function CateringPage() {
           {t.payMomo}
         </button>
         <button
-          onClick={handleWhatsApp}
-          disabled={!selectedVendor}
-          className="flex items-center justify-center gap-2 py-3.5 bg-white hover:bg-green-50 disabled:opacity-50 disabled:cursor-not-allowed text-green-600 font-bold rounded-2xl transition-colors text-sm border-2 border-green-500"
+          onClick={() => setCustomOpen(true)}
+          className="flex items-center justify-center gap-2 py-3.5 bg-white hover:bg-amber-50 text-amber-600 font-bold rounded-2xl transition-colors text-sm border-2 border-amber-300"
         >
-          <MessageCircle className="w-4 h-4" />
-          {t.whatsappCook}
+          <ClipboardList className="w-4 h-4" />
+          {t.requestCustomQuote}
         </button>
       </div>
 

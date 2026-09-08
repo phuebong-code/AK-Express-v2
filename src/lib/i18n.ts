@@ -71,7 +71,7 @@ export interface Dict {
   platformFee: string;
   cookEarnings: string;
   payMomo: string;
-  whatsappCook: string;
+  requestCustomQuote: string;
   cateringBooked: string;
   // Vendor
   vendorTitle: string;
@@ -266,7 +266,7 @@ export const dict: Record<Lang, Dict> = {
     platformFee: 'Platform Fee (15%)',
     cookEarnings: 'Cook Net Earnings (~85%)',
     payMomo: 'Pay via Mobile Money (Escrow)',
-    whatsappCook: 'WhatsApp Cook',
+    requestCustomQuote: 'Request Custom Quote',
     cateringBooked: 'Catering request submitted! Your 4-Digit PIN has been generated.',
     vendorTitle: 'Vendor Escrow Verification',
     vendorSubtitle:
@@ -448,7 +448,7 @@ export const dict: Record<Lang, Dict> = {
     platformFee: 'Frais de Plateforme (15%)',
     cookEarnings: 'Bénéfices Net Cuisinier (~85%)',
     payMomo: 'Payer par Mobile Money (Escrow)',
-    whatsappCook: 'WhatsApp Cuisinier',
+    requestCustomQuote: 'Demander un devis',
     cateringBooked: 'Demande de traiteur envoyée! Votre code PIN à 4 chiffres a été généré.',
     vendorTitle: 'Vérification Escrow Vendeur',
     vendorSubtitle:

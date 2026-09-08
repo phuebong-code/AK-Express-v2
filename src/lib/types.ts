@@ -14,7 +14,6 @@ export interface Vendor {
   rating: number;
   reviews: number;
   image_url: string;
-  phone: string;
   prep_minutes: number;
   available: boolean;
   dish_type: DishType;
