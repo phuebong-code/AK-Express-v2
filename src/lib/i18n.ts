@@ -199,6 +199,17 @@ export interface Dict {
   // Share
   shareApp: string;
   linkCopied: string;
+  // Pre-order / delivery schedule
+  deliverySchedule: string;
+  expressDelivery: string;
+  schedulePreOrder: string;
+  selectDate: string;
+  selectTimeSlot: string;
+  slotLunch: string;
+  slotAfternoon: string;
+  slotDinner: string;
+  scheduledFor: string;
+  expressNow: string;
 }
 
 export const dict: Record<Lang, Dict> = {
@@ -385,6 +396,16 @@ export const dict: Record<Lang, Dict> = {
     splashTagline: 'Grassfield Delicacies, Delivered Hot',
     shareApp: 'Share App',
     linkCopied: 'Link copied to clipboard!',
+    deliverySchedule: 'Delivery Schedule',
+    expressDelivery: 'Express / Immediate Delivery',
+    schedulePreOrder: 'Schedule Pre-Order',
+    selectDate: 'Select Date',
+    selectTimeSlot: 'Select Time Slot',
+    slotLunch: '11:30 AM - 1:30 PM',
+    slotAfternoon: '1:30 PM - 3:30 PM',
+    slotDinner: '5:00 PM - 7:00 PM',
+    scheduledFor: 'Scheduled for',
+    expressNow: 'Express — ASAP',
   },
   fr: {
     appName: 'Achu & Kati-Kati Express',
@@ -569,6 +590,16 @@ export const dict: Record<Lang, Dict> = {
     splashTagline: 'Délices Grassfield, Livrés Chauds',
     shareApp: 'Partager l\'App',
     linkCopied: 'Lien copié dans le presse-papier !',
+    deliverySchedule: 'Programmation de Livraison',
+    expressDelivery: 'Livraison Express / Immédiate',
+    schedulePreOrder: 'Précommande Programmée',
+    selectDate: 'Choisir la Date',
+    selectTimeSlot: 'Choisir le Créneau',
+    slotLunch: '11h30 - 13h30',
+    slotAfternoon: '13h30 - 15h30',
+    slotDinner: '17h00 - 19h00',
+    scheduledFor: 'Programmé pour',
+    expressNow: 'Express — Dès que possible',
   },
 };
 

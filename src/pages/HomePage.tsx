@@ -96,6 +96,14 @@ export default function HomePage({ onOrder }: Props) {
           alt="Achu dish"
           className="absolute inset-0 w-full h-full object-cover"
         />
+        {/* Ndop-inspired geometric pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-20 pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23F59E0B' stroke-width='1.5'%3E%3Crect x='10' y='10' width='60' height='60'/%3E%3Crect x='20' y='20' width='40' height='40'/%3E%3Crect x='30' y='30' width='20' height='20'/%3E%3Cline x1='0' y1='0' x2='80' y2='80'/%3E%3Cline x1='80' y1='0' x2='0' y2='80'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat',
+          }}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-[#FFFDF5]" />
         <div className="relative z-10 px-5 pt-8 pb-4 max-w-md mx-auto">
           <div className="inline-flex items-center gap-1.5 bg-amber-500/90 backdrop-blur-sm rounded-full px-3 py-1 mb-4">

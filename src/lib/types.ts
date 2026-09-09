@@ -20,6 +20,8 @@ export interface Vendor {
   created_at: string;
 }
 
+export type DeliveryType = 'express' | 'scheduled';
+
 export interface Order {
   id: string;
   vendor_id: string;
@@ -36,6 +38,9 @@ export interface Order {
   pickup_pin: string | null;
   quarter: string;
   landmark: string | null;
+  delivery_type: DeliveryType;
+  scheduled_date: string | null;
+  scheduled_time_slot: string | null;
   created_at: string;
   released_at: string | null;
 }

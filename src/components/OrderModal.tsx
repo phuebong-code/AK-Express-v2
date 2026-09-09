@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLang } from '@/context/LanguageContext';
 import { supabase } from '@/lib/supabase';
-import { Vendor, Order, SoupChoice } from '@/lib/types';
+import { Vendor, Order, SoupChoice, DeliveryType } from '@/lib/types';
 import {
   computePricing,
   formatXaf,
@@ -22,6 +22,7 @@ import {
   X,
   Star,
   MapPin,
+  Calendar,
   Clock,
   Lock,
   CheckCircle2,
@@ -63,6 +64,9 @@ function OrderModal({ vendor, onClose }: Props) {
   const [success, setSuccess] = useState(false);
   const [orderPin, setOrderPin] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState<'moto' | 'taxi'>('moto');
+  const [deliveryType, setDeliveryType] = useState<DeliveryType>('express');
+  const [scheduledDate, setScheduledDate] = useState('');
+  const [scheduledTimeSlot, setScheduledTimeSlot] = useState('');
 
   const showDishSwitch = isAchu && isKatiKati;
 
@@ -88,7 +92,8 @@ function OrderModal({ vendor, onClose }: Props) {
   const pricing = computePricing(finalTotal);
 
   const soupSelected = dishType === 'kati_kati' || soupChoice !== '';
-  const formValid = !!(name && phone && quarter && soupSelected);
+  const scheduleValid = deliveryType === 'express' || (scheduledDate && scheduledTimeSlot);
+  const formValid = !!(name && phone && quarter && soupSelected && scheduleValid);
 
   function toggleAddon(id: string, list: string[], setter: (v: string[]) => void) {
     setter(list.includes(id) ? list.filter((a) => a !== id) : [...list, id]);
@@ -129,6 +134,9 @@ function OrderModal({ vendor, onClose }: Props) {
       pickup_pin: pin,
       quarter,
       landmark: landmark || null,
+      delivery_type: deliveryType,
+      scheduled_date: deliveryType === 'scheduled' ? scheduledDate : null,
+      scheduled_time_slot: deliveryType === 'scheduled' ? scheduledTimeSlot : null,
     };
     const { error } = await supabase.from('orders').insert(insert);
     if (!error) {
@@ -487,6 +495,73 @@ function OrderModal({ vendor, onClose }: Props) {
                     className="w-full px-3 py-2.5 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
                   />
                 </div>
+              </div>
+
+              {/* Delivery schedule */}
+              <div className="bg-white rounded-2xl border border-amber-100 p-4">
+                <label className="text-xs font-bold text-[#1E293B] mb-3 block flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-amber-500" />
+                  {t.deliverySchedule}
+                </label>
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  <button
+                    onClick={() => setDeliveryType('express')}
+                    className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all ${
+                      deliveryType === 'express'
+                        ? 'border-amber-500 bg-amber-50'
+                        : 'border-slate-100 hover:border-amber-200'
+                    }`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      deliveryType === 'express' ? 'bg-amber-100' : 'bg-slate-50'
+                    }`}>
+                      <Clock className={`w-4 h-4 ${deliveryType === 'express' ? 'text-amber-600' : 'text-slate-400'}`} />
+                    </div>
+                    <p className="text-[11px] font-bold text-[#1E293B] leading-tight text-left">{t.expressDelivery}</p>
+                  </button>
+                  <button
+                    onClick={() => setDeliveryType('scheduled')}
+                    className={`flex items-center gap-2 p-3 rounded-xl border-2 transition-all ${
+                      deliveryType === 'scheduled'
+                        ? 'border-amber-500 bg-amber-50'
+                        : 'border-slate-100 hover:border-amber-200'
+                    }`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                      deliveryType === 'scheduled' ? 'bg-amber-100' : 'bg-slate-50'
+                    }`}>
+                      <Calendar className={`w-4 h-4 ${deliveryType === 'scheduled' ? 'text-amber-600' : 'text-slate-400'}`} />
+                    </div>
+                    <p className="text-[11px] font-bold text-[#1E293B] leading-tight text-left">{t.schedulePreOrder}</p>
+                  </button>
+                </div>
+                {deliveryType === 'scheduled' && (
+                  <div className="grid grid-cols-2 gap-3 animate-[fadeIn_0.2s_ease-out]">
+                    <div>
+                      <label className="text-[10px] font-semibold text-slate-500 mb-1 block">{t.selectDate}</label>
+                      <input
+                        type="date"
+                        value={scheduledDate}
+                        onChange={(e) => setScheduledDate(e.target.value)}
+                        min={new Date().toISOString().split('T')[0]}
+                        className="w-full px-3 py-2.5 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-amber-400"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-semibold text-slate-500 mb-1 block">{t.selectTimeSlot}</label>
+                      <select
+                        value={scheduledTimeSlot}
+                        onChange={(e) => setScheduledTimeSlot(e.target.value)}
+                        className="w-full px-3 py-2.5 bg-white rounded-xl border border-amber-100 text-sm text-[#1E293B] focus:outline-none focus:ring-2 focus:ring-amber-400"
+                      >
+                        <option value="">{t.selectTimeSlot}</option>
+                        <option value="lunch">{t.slotLunch}</option>
+                        <option value="afternoon">{t.slotAfternoon}</option>
+                        <option value="dinner">{t.slotDinner}</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Delivery method */}

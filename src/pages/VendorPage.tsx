@@ -5,6 +5,7 @@ import { Order, CateringRequest } from '@/lib/types';
 import { formatXaf, ACHU_ADDONS, KATI_KATI_ADDONS, BASE_DISH_PRICE } from '@/lib/pricing';
 import {
   Store,
+  Calendar,
   Lock,
   Unlock,
   Loader2,
@@ -26,6 +27,7 @@ export default function VendorPage() {
   const [pendingEscrow, setPendingEscrow] = useState(0);
   const [availableCashout, setAvailableCashout] = useState(0);
   const [releasedCount, setReleasedCount] = useState(0);
+  const [scheduledOrders, setScheduledOrders] = useState<Order[]>([]);
   const [basePrice, setBasePrice] = useState(String(BASE_DISH_PRICE));
   const [addonPrices, setAddonPrices] = useState<Record<string, string>>({});
   const [pricesSaved, setPricesSaved] = useState(false);
@@ -53,11 +55,12 @@ export default function VendorPage() {
   }, []);
 
   const fetchBalances = useCallback(async () => {
-    const [ordersRes, cateringRes, releasedOrders, releasedCatering] = await Promise.all([
+    const [ordersRes, cateringRes, releasedOrders, releasedCatering, pendingOrdersFull] = await Promise.all([
       supabase.from('orders').select('cook_payout_xaf, status').eq('status', 'held_in_escrow'),
       supabase.from('catering_requests').select('cook_payout_xaf, status').eq('status', 'held_in_escrow'),
       supabase.from('orders').select('cook_payout_xaf, status').eq('status', 'released'),
       supabase.from('catering_requests').select('cook_payout_xaf, status').eq('status', 'released'),
+      supabase.from('orders').select('id, customer_name, dish, quantity, quarter, delivery_type, scheduled_date, scheduled_time_slot, status').eq('status', 'held_in_escrow').order('scheduled_date', { ascending: true }),
     ]);
 
     const pendingOrders = (ordersRes.data as Order[] | null) || [];
@@ -74,6 +77,7 @@ export default function VendorPage() {
     setPendingEscrow(pending);
     setAvailableCashout(available);
     setReleasedCount(releasedOrdersData.length + releasedCateringData.length);
+    setScheduledOrders((pendingOrdersFull.data as Order[] | null) || []);
   }, []);
 
   useEffect(() => {
@@ -225,6 +229,41 @@ export default function VendorPage() {
           </p>
         </div>
       </div>
+
+      {/* Scheduled pre-orders */}
+      {scheduledOrders.length > 0 && (
+        <div className="mt-4 bg-white rounded-2xl shadow-sm border border-amber-100 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Calendar className="w-4 h-4 text-amber-500" />
+            <h3 className="text-sm font-bold text-[#1E293B]">{t.schedulePreOrder}</h3>
+            <span className="ml-auto text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
+              {scheduledOrders.length}
+            </span>
+          </div>
+          <div className="space-y-2">
+            {scheduledOrders.map((o) => (
+              <div key={o.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-amber-50/50 border border-amber-100">
+                <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
+                  <Calendar className="w-4 h-4 text-amber-600" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-bold text-[#1E293B] truncate">{o.customer_name} — {o.dish}</p>
+                  <p className="text-[10px] text-slate-500">
+                    {o.delivery_type === 'scheduled' && o.scheduled_date
+                      ? `${t.scheduledFor}: ${o.scheduled_date} ${
+                          o.scheduled_time_slot === 'lunch' ? t.slotLunch :
+                          o.scheduled_time_slot === 'afternoon' ? t.slotAfternoon :
+                          o.scheduled_time_slot === 'dinner' ? t.slotDinner : ''
+                        }`
+                      : t.expressNow}
+                  </p>
+                </div>
+                <span className="text-[10px] font-semibold text-slate-400 shrink-0">{o.quarter}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Released orders */}
       <div className="mt-4 bg-white rounded-2xl shadow-sm border border-amber-100 p-4">

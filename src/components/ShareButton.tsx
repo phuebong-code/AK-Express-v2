@@ -68,12 +68,12 @@ function ShareButton({ variant = 'icon' }: ShareButtonProps) {
     <button
       onClick={handleShare}
       aria-label={t.shareApp}
-      className="relative w-9 h-9 rounded-full bg-white border border-amber-200 flex items-center justify-center shadow-sm hover:bg-amber-50 transition-colors shrink-0"
+      className="relative p-2 rounded-full text-amber-500 bg-amber-50 hover:bg-amber-100 transition-colors shrink-0"
     >
       {copied ? (
         <Check className="w-4 h-4 text-green-600" />
       ) : (
-        <Share2 className="w-4 h-4 text-amber-600" />
+        <Share2 className="w-4 h-4" />
       )}
       {copied && (
         <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#1E293B] text-white text-[10px] font-semibold px-2.5 py-1 rounded-lg shadow-lg animate-[fadeIn_0.2s_ease-out] z-50">
